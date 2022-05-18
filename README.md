@@ -1,2 +1,1 @@
-# algoritmos_e_prog_UNIVALI
-// Repositório de Estudos de diferentes linguagens de programação
+# algoritmos_e_prog_UNIVALIRepositório de studos de diferentes linguagens de programação
