@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <locale.h>
-#include <time.h>
 #define TAM 4
 
 using namespace std;
@@ -12,13 +11,12 @@ using namespace std;
 int main() {
   setlocale (LC_ALL, "Portuguese");
 
-  srand (time(NULL));
   int mat[TAM][TAM], vet[TAM], lin, col, soma=0, resulX=1;;
 
   cout << "Digite 16 valores:" << endl;
   for (lin = 0; lin < TAM; lin++) {
     for (col = 0; col < TAM; col++) {
-      mat[lin][col] = rand() % (TAM*TAM) +1;
+      cin >> mat[lin][col];
     }
   }
   cout << endl;
