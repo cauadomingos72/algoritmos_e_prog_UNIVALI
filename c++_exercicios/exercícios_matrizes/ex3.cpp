@@ -20,7 +20,7 @@ int main() {
   }
   for (lin = 1; lin <= TAM; lin++) {
     for (col = 1; col <= TAM; col++) {
-      if (mat[lin][col] < 100) {
+      if (mat[lin][col] > 100) {
         mat[lin][col] = 0;
       }
     }
