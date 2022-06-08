@@ -19,18 +19,28 @@ using namespace std;
 
 int main() {
   srand(time(NULL));
-  int matP[TAM][TAM] {1,4,5,2,7,2,8,7,3,6,1,4,6,5,3,8} , matT[TAM][TAM]{}, matIL[TAM][TAM] {}, matIC[TAM][TAM] {}, lin, col;
+  int matP[TAM][TAM] {1,4,5,2,7,2,8,7,3,6,1,4,6,5,3,8} , matT[TAM][TAM]{}, matIL[TAM][TAM] {}, matIC[TAM][TAM] {}, lin, col, numero_rand;
 
-    for(lin=0;lin<TAM;lin++) {
+  numero_rand = rand()%3+1; //Gerar um numero aleatorio que será usado para estabelecer qual será a matriz gabarito 
+  cout<< numero_rand<<endl;
+  cout << endl;
+
+    // Gerando a Matriz Transposta:
+    for(lin=0;lin<TAM;lin++) {    
       for(col=0;col<TAM;col++) {
         matT[lin][col] = matP[col][lin];
       }
     }
+
+    // Gerando a Matriz Invertida por Linha:
+    for(lin=0;lin<TAM;lin++) {    
+      for(col=0;col<TAM;col++) {
+        matIL[lin][col] = matP[lin][col];
+      }
+    }
+
     
-   numero_rand = rand()%3+1; //Gerar um numero aleatorio que será usado para estabelecer qual será a matriz gabarito
-   cout<< numero_rand;
-  
-    for (lin=0;lin<TAM;lin++){      // Exibindo a matriz principal [remover no final]
+    for (lin=0;lin<TAM;lin++) {    // Exibindo a matriz principal [remover no final]
         for (col=0;col<TAM;col++){
             cout << matP[lin][col] << "\t";
         }
@@ -39,10 +49,19 @@ int main() {
 
     cout<<endl;
 
-    for (lin=0;lin<TAM;lin++){      // Exibindo a matriz transposta [remover no final]
+    for (lin=0;lin<TAM;lin++) {   // Exibindo a matriz transposta [remover no final]
         for (col=0;col<TAM;col++){
             cout << matT[lin][col] << "\t";
         }
         cout << endl;
     }
+
+    cout << endl;
+
+   for (lin=0;lin<TAM;lin++) {    // Exibindo a matriz invertida por linha [remover no final]
+        for (col=0;col<TAM;col++){
+            cout << matIL[lin][col] << "\t";
+        }
+        cout << endl;
+    } 
 }
