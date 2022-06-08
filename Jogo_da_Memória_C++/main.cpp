@@ -24,6 +24,24 @@ int main() {
   numero_rand = rand()%3+1; //Gerar um numero aleatorio que será usado para estabelecer qual será a matriz gabarito 
   cout<< numero_rand<<endl;
   cout << endl;
+  
+  switch(numero_rand) //Será selecionado qual será a matriz gabarito de acordo com o numero gerado aleatoriamente
+
+  case 1:  //No caso 1, a matriz gabarito será uma copia da matriz principal
+  matP[TAM][TAM];
+  break;
+
+  case 2: //No caso 2, a matriz gabarito será uma matriz transposta
+  matT[TAM][TAM];
+  break;
+
+  case 3: //No caso 3, a matriz gabarito será uma matriz inversa por linha
+  matIL[TAM][TAM];
+  break;
+
+  case 4: //No caso 4, a matriz gabarito será uma matriz inversa por coluna
+  matIC[TAM][TAM];
+  break;
 
     // Gerando a Matriz Transposta:
     for(lin=0;lin<TAM;lin++) {    
