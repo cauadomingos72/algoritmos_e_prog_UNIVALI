@@ -27,6 +27,9 @@ int main() {
       }
     }
     
+   numero_rand = rand()%3+1; //Gerar um numero aleatorio que será usado para estabelecer qual será a matriz gabarito
+   cout<< numero_rand;
+  
     for (lin=0;lin<TAM;lin++){      // Exibindo a matriz principal [remover no final]
         for (col=0;col<TAM;col++){
             cout << matP[lin][col] << "\t";
