@@ -32,30 +32,31 @@ int main() {
   break;
 
   case 2: //No caso 2, a matriz gabarito será uma matriz transposta
-  matT[TAM][TAM];
+  // Gerando a Matriz Transposta:
+    for(lin=0;lin<TAM;lin++) {    
+      for(col=0;col<TAM;col++) {
+        matT[lin][col] = matP[col][lin];
+      }
+    }
   break;
 
   case 3: //No caso 3, a matriz gabarito será uma matriz inversa por linha
-  matIL[TAM][TAM];
+  // Gerando a Matriz Invertida por Linha:
+    for(lin=0;lin<TAM;lin++) {    
+      for(col=0;col<TAM;col++) {
+        vetL[col] = matP[lin][col];
+      }
+      for(col=0;col<TAM;col++) {
+        lin = 3-lin;
+        matIL[lin][col] = vetL[col];
+      }
+    }
   break;
 
   case 4: //No caso 4, a matriz gabarito será uma matriz inversa por coluna
   matIC[TAM][TAM];
   break;
 
-    // Gerando a Matriz Transposta:
-    for(lin=0;lin<TAM;lin++) {    
-      for(col=0;col<TAM;col++) {
-        matT[lin][col] = matP[col][lin];
-      }
-    }
-
-    // Gerando a Matriz Invertida por Linha:
-    for(lin=0;lin<TAM;lin++) {    
-      for(col=0;col<TAM;col++) {
-        matIL[lin][col] = matP[lin][col];
-      }
-    }
 
     
     for (lin=0;lin<TAM;lin++) {    // Exibindo a matriz principal [remover no final]
