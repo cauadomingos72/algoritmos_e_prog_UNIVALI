@@ -1,12 +1,11 @@
 /** 
   Já implementado:
+  -> Matriz transposta
+  -> Seletor da matriz gabarito
 
   O que falta:
-    -> Criar a matriz transposta
     -> Criar a matriz invertida por linha
     -> Criar a matriz invertida por coluna
-    -> Criar um seletor da matriz gabarito
-    ->
 
 */
 
