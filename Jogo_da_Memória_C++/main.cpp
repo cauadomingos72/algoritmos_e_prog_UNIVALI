@@ -231,7 +231,7 @@ int main() {
 
     cout << "Digite a posição da linha e da coluna, respectivamente, do primeiro valor:" << endl;
     cin >> lin1 >> col1;
-    val1=matP[lin1-1][col1-1];
+    val1=matIL[lin1-1][col1-1];
     matJ[lin1-1][col1-1]=matIL[lin1-1][col1-1];
 
     cout<< endl;
@@ -257,7 +257,7 @@ int main() {
       cin >> lin2 >> col2;
       }
     }
-    val2=matP[lin2-1][col2-1];
+    val2=matIL[lin2-1][col2-1];
     matJ[lin2-1][col2-1]=matIL[lin2-1][col2-1];
     
     system("clear");
