@@ -46,6 +46,12 @@ int main() {
 
     cout << "Digite a posição da linha e da coluna, respectivamente, do primeiro valor:" << endl;
     cin >> lin1 >> col1;
+    if (matJ[lin1-1][col1-1]!=0){
+      while (matJ[lin1-1][col1-1]!=0) {
+        cout << "Digite uma posição diferente:" << endl;
+        cin >> lin1 >> col1;
+      }
+    }
     val1=matP[lin1-1][col1-1];
     matJ[lin1-1][col1-1]=matP[lin1-1][col1-1];
 
@@ -66,6 +72,12 @@ int main() {
     
     cout << "Digite a posição da linha e da coluna, respectivamente, do segundo valor:" << endl;
     cin >> lin2 >> col2;
+    if (matJ[lin2-1][col2-1]!=0){
+      while (matJ[lin2-1][col2-1]!=0) {
+        cout << "Digite uma posição diferente:" << endl;
+        cin >> lin2 >> col2;
+      }
+    }
     if (lin2 == lin1 && col2 == col1) {
       while (lin2 == lin1 && col2 == col1) {
       cout << "Digite uma posição diferente:" << endl;
@@ -139,6 +151,12 @@ int main() {
 
     cout << "Digite a posição da linha e da coluna, respectivamente, do primeiro valor:" << endl;
     cin >> lin1 >> col1;
+    if (matJ[lin1-1][col1-1]!=0){
+      while (matJ[lin1-1][col1-1]!=0) {
+        cout << "Digite uma posição diferente:" << endl;
+        cin >> lin1 >> col1;
+      }
+    }
     val1=matT[lin1-1][col1-1];
     matJ[lin1-1][col1-1]=matT[lin1-1][col1-1];
 
@@ -159,6 +177,12 @@ int main() {
     
     cout << "Digite a posição da linha e da coluna, respectivamente, do segundo valor:" << endl;
     cin >> lin2 >> col2;
+    if (matJ[lin2-1][col2-1]!=0){
+      while (matJ[lin2-1][col2-1]!=0) {
+        cout << "Digite uma posição diferente:" << endl;
+        cin >> lin2 >> col2;
+      }
+    }
     if (lin2 == lin1 && col2 == col1) {
       while (lin2 == lin1 && col2 == col1) {
       cout << "Digite uma posição diferente:" << endl;
@@ -231,6 +255,12 @@ int main() {
 
     cout << "Digite a posição da linha e da coluna, respectivamente, do primeiro valor:" << endl;
     cin >> lin1 >> col1;
+    if (matJ[lin1-1][col1-1]!=0){
+      while (matJ[lin1-1][col1-1]!=0) {
+        cout << "Digite uma posição diferente:" << endl;
+        cin >> lin1 >> col1;
+      }
+    }
     val1=matIL[lin1-1][col1-1];
     matJ[lin1-1][col1-1]=matIL[lin1-1][col1-1];
 
@@ -251,6 +281,12 @@ int main() {
     
     cout << "Digite a posição da linha e da coluna, respectivamente, do segundo valor:" << endl;
     cin >> lin2 >> col2;
+    if (matJ[lin2-1][col2-1]!=0){
+      while (matJ[lin2-1][col2-1]!=0) {
+        cout << "Digite uma posição diferente:" << endl;
+        cin >> lin2 >> col2;
+      }
+    }
     if (lin2 == lin1 && col2 == col1) {
       while (lin2 == lin1 && col2 == col1) {
       cout << "Digite uma posição diferente:" << endl;
@@ -323,6 +359,12 @@ int main() {
 
     cout << "Digite a posição da linha e da coluna, respectivamente, do primeiro valor:" << endl;
     cin >> lin1 >> col1;
+    if (matJ[lin1-1][col1-1]!=0){
+      while (matJ[lin1-1][col1-1]!=0) {
+        cout << "Digite uma posição diferente:" << endl;
+        cin >> lin1 >> col1;
+      }
+    }
     val1=matIC[lin1-1][col1-1];
     matJ[lin1-1][col1-1]=matIC[lin1-1][col1-1];
 
@@ -343,6 +385,12 @@ int main() {
     
     cout << "Digite a posição da linha e da coluna, respectivamente, do segundo valor:" << endl;
     cin >> lin2 >> col2;
+    if (matJ[lin2-1][col2-1]!=0){
+      while (matJ[lin2-1][col2-1]!=0) {
+        cout << "Digite uma posição diferente:" << endl;
+        cin >> lin2 >> col2;
+      }
+    }
     if (lin2 == lin1 && col2 == col1) {
       while (lin2 == lin1 && col2 == col1) {
       cout << "Digite uma posição diferente:" << endl;
