@@ -13,7 +13,7 @@ int main() {
   srand(time(NULL));
   int matP[TAM][TAM] {1,4,5,2,7,2,8,7,3,6,1,4,6,5,3,8},matT[TAM][TAM]{1,7,3,6,4,2,6,5,5,8,1,3,2,7,4,8},matIL[TAM][TAM] {6,5,3,8,3,6,1,4,7,2,8,7,1,4,5,2},matIC[TAM][TAM] {2,5,4,1,7,8,2,7,4,1,6,3,8,3,5,6},matJ[TAM][TAM]{},lin,col,lin1,col1,lin2,col2,numero_rand, rodadas=24, rodadasJ=0,val1=0, val2=0, cont=0, pares=8;
 
-  numero_rand = rand()%1+1; //Gera um numero aleatorio que será usado para estabelecer qual será a matriz gabarito 
+  numero_rand = rand()%4+1; //Gera um numero aleatorio que será usado para estabelecer qual será a matriz gabarito 
   cout << "--------------------------------------------------------" << endl;
   cout << "--------------------------------------------------------" << endl;
   cout << endl;
