@@ -1,3 +1,6 @@
+/**
+Faça um programa que possua uma função que receba um valor inteiro e verifica se o valor é positivo ou negativo. A função deve retornar um se for positivo e zero se for negativo. Deve existir também um procedimento que faça a leitura.
+*/
 #include <iostream>
 #include <locale.h>
 
