@@ -33,7 +33,7 @@ int main() {
   setlocale (LC_ALL,"Portuguese");
 
   int peso, maior, menor;
-  for(int i=4;i>0;i--){
+  for(int i=25;i>0;i--){
     pes(peso);
     maior=verfMai(peso);
     menor=verfMen(peso);
