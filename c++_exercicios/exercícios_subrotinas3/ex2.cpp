@@ -1,3 +1,9 @@
+/**
+Crie uma função para fazer a leitura das notas de 10 alunos e adicioná-las no vetor. Crie
+uma função para calcular a média das notas de 10 alunos de uma disciplina e em outra função
+verifique o número de alunos que tiveram nota superior à média calculada. Exiba a quantidade
+de alunos com nota superior à média no main.
+*/
 #include <iostream>
 #include <locale.h>
 #define TAM 10
