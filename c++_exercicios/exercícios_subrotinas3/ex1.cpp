@@ -15,7 +15,7 @@ float media(int vet[TAM]){
   for(int i=0;i<TAM;i++){
     soma=soma+vet[i];
   }
-  return soma/TAM;
+  return (float) soma/TAM;
 }
 
 int maior(int vet[TAM]){
