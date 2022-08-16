@@ -1,3 +1,8 @@
+/**
+Declare um vetor de 5 inteiros, leia um valor para cada posição. Crie uma função que
+verifique quantos elementos possuem valor maior, menor e igual ao primeiro elemento do
+vetor. Mostre a quantidade de valores maiores, menores e iguais no main.
+*/
 #include <iostream>
 #include <locale.h>
 #define TAM 5
