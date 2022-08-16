@@ -1,3 +1,6 @@
+/**
+Declare um vetor de 10 inteiros no main, crie uma função para fazer a leitura do vetor. Na sequência faça outras três funções para calcular a média, o menor e o maior valor contidos no vetor. Exiba os valores da média, menor e maior no main.
+*/
 #include <iostream>
 #include <locale.h>
 #define TAM 10
