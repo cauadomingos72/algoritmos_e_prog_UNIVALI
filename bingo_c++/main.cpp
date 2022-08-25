@@ -27,7 +27,11 @@ using namespace std;
 
 void menu()
 {
-    cout << "\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t   BINGO\n\n\n\n\n" << endl;
+    cout << " ____ ___ _  _  ____  ___  " << endl;
+    cout << "| __ )_ _| \ | |/ ___|/ _  " << endl;
+    cout << "|  _ \ | ||  \| | |  _| | | |" << endl;
+    cout << "| |_) | || |\  | |_| | |_| |" << endl;
+    cout << "|____/___|_| \_| \____| ___/ " << endl;
 }
 
 string preencher(int cartela[TAM][TAM])
@@ -167,4 +171,3 @@ int main()
         system("pause");
     }
 }
-
