@@ -24,11 +24,6 @@
 #define TAM 5
 using namespace std;
 
-void menu()
-{
-    cout << "\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t   BINGO\n\n\n\n\n" << endl;
-}
-
 void preencher(int cartela[TAM][TAM])
 {
     for(int i=0; i<TAM; i++)
@@ -43,7 +38,6 @@ void preencher(int cartela[TAM][TAM])
 
 void bubblesort (int cartela[TAM][TAM]){
     int cond=1, temp=0;
-    for(int i=0; i<TAM; i++){}
     for(int i=TAM-1; (i>=1) && (cond==1); i--){
     cond=0;
         for(int j=0; j<TAM;j++){
@@ -119,12 +113,6 @@ void movimenta (int tecla, int *x, int *y)
 
 int main()
 {
-    bool game;
-    menu();
-    cout << "1 - Jogar\n2 - Fechar o jogo" << endl;
-    cin >> game;
-    while(game==true)
-    {
     setlocale(LC_ALL, "Portuguese");
     int cartela1[TAM][TAM]{0};
     int cartela2[TAM][TAM]{0};
@@ -132,10 +120,15 @@ int main()
     int cartela4[TAM][TAM]{0};
     int cartela5[TAM][TAM]{0};
     preencher(cartela1);
+    bubblesort(cartela1);
     preencher(cartela2);
+    bubblesort(cartela2);
     preencher(cartela3);
+    bubblesort(cartela3);
     preencher(cartela4);
+    bubblesort(cartela4);
     preencher(cartela5);
+    bubblesort(cartela5);
     textcolor(7,0);
     exibir(cartela1);
     textcolor(2,0);
@@ -149,5 +142,4 @@ int main()
     textbackground(3);
     textcolor(7,0);
     return 0;
-    }
 }
