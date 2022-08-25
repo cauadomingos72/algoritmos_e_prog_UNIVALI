@@ -5,35 +5,45 @@
 #include <locale.h>
 #include <windows.h>
 #include <string.h>
-#define BLACK 0
-#define BLUE 1
-#define GREEN 2
-#define AQUA 3
-#define RED 4
-#define PURPLE 5
-#define YELLOW 6
-#define WHITE 7
-#define GRAY 8
-#define LIGHTBLUE 9
-#define LIGHTGREEN 10
-#define LIGHTAQUA 11
-#define LIGHTRED 12
-#define LIGHTPURPLE 13
-#define LIGHTYELLOW 14
-#define BRIGHTWHITE 15
+#include <conio.h>
+#define BLACK        0
+#define BLUE         1
+#define GREEN        2
+#define AQUA         3
+#define RED          4
+#define PURPLE       5
+#define YELLOW       6
+#define WHITE        7
+#define GRAY         8
+#define LIGHTBLUE    9
+#define LIGHTGREEN   10
+#define LIGHTAQUA    11
+#define LIGHTRED     12
+#define LIGHTPURPLE  13
+#define LIGHTYELLOW  14
+#define BRIGHTWHITE  15
 #define TAM 5
 using namespace std;
 
-void preencher(int cartela[TAM][TAM])
+void menu()
+{
+    cout << "\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t   BINGO\n\n\n\n\n" << endl;
+}
+
+string preencher(int cartela[TAM][TAM])
 {
     for(int i=0; i<TAM; i++)
     {
         int soma=15;
         for(int j=0; j<TAM; j++)
         {
-            cartela[i][j] = i*15+(rand()%soma+1);
+            cartela[i][j] = 1+i*15+(rand()%soma);
         }
     }
+    string nome;
+    cout << "De um nome para a cartela:";
+    cin >> nome;
+    return nome;
 }
 
 void bubblesort (int cartela[TAM][TAM]){
@@ -54,8 +64,9 @@ void bubblesort (int cartela[TAM][TAM]){
     }
 }
 
-void exibir(int cartela[TAM][TAM])
+void exibir(int cartela[TAM][TAM], string nome)
 {
+    cout << "Cartela de " << nome << endl;
     for(int i=0; i<TAM; i++)
     {
         for(int j=0; j<TAM; j++)
@@ -92,7 +103,7 @@ void randomize() {
 }
 
 void textcolor (int forecolor, int backcolor) {
- SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (forecolor | backcolor<<4));
+	SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (forecolor | backcolor<<4));
 }
 
 void textbackground (int newcolor) {
@@ -104,42 +115,56 @@ void movimenta (int tecla, int *x, int *y)
 {
     switch(tecla)
     {
-        case 72: gotoxy(*x,--*y); break; //cima
-        case 80: gotoxy(*x,++*y); break; //baixo
-        case 75: gotoxy(--*x,*y); break; //esquerda
-        case 77: gotoxy(++*x,*y); break; //direita
+        case 72: gotoxy(*x,--*y); break;      //cima
+        case 80: gotoxy(*x,++*y); break;     //baixo
+        case 75: gotoxy(--*x,*y); break;  //esquerda
+        case 77: gotoxy(++*x,*y); break;   //direita
     }
 }
 
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
-    int cartela1[TAM][TAM]{0};
-    int cartela2[TAM][TAM]{0};
-    int cartela3[TAM][TAM]{0};
-    int cartela4[TAM][TAM]{0};
-    int cartela5[TAM][TAM]{0};
-    preencher(cartela1);
-    bubblesort(cartela1);
-    preencher(cartela2);
-    bubblesort(cartela2);
-    preencher(cartela3);
-    bubblesort(cartela3);
-    preencher(cartela4);
-    bubblesort(cartela4);
-    preencher(cartela5);
-    bubblesort(cartela5);
-    textcolor(7,0);
-    exibir(cartela1);
-    textcolor(2,0);
-    exibir(cartela2);
-    textcolor(7,0);
-    exibir(cartela3);
-    textcolor(2,0);
-    exibir(cartela4);
-    textcolor(7,0);
-    exibir(cartela5);
-    textbackground(3);
-    textcolor(7,0);
-    return 0;
+    int opcao;
+    bool game;
+    textcolor(15,0);
+    menu();
+    cout << "1 - Jogar\n2 - Fechar o jogo" << endl;
+    cin >> opcao;
+    if(opcao%2==0)
+    game=false;
+    else
+    game=true;
+    while(game==true)
+    {
+        clrscr();
+        int cartela1[TAM][TAM]{0};
+        int cartela2[TAM][TAM]{0};
+        int cartela3[TAM][TAM]{0};
+        int cartela4[TAM][TAM]{0};
+        int cartela5[TAM][TAM]{0};
+        string nome1 = preencher(cartela1);
+        bubblesort(cartela1);
+        string nome2 = preencher(cartela2);
+        bubblesort(cartela2);
+        string nome3 = preencher(cartela3);
+        bubblesort(cartela3);
+        string nome4 = preencher(cartela4);
+        bubblesort(cartela4);
+        string nome5 = preencher(cartela5);
+        bubblesort(cartela5);
+        clrscr();
+        textcolor(10,0);
+        exibir(cartela1,nome1);
+        textcolor(12,0);
+        exibir(cartela2,nome2);
+        textcolor(13,0);
+        exibir(cartela3,nome3);
+        textcolor(14,0);
+        exibir(cartela4,nome4);
+        textcolor(15,0);
+        exibir(cartela5,nome5);
+        system("pause");
+    }
 }
+
