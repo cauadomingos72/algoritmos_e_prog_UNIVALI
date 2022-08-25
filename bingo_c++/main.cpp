@@ -41,10 +41,23 @@ void preencher(int cartela[TAM][TAM])
     }
 }
 
-void ordem (int cartela[TAM][TAM])
-{
+void bubblesort (int cartela[TAM][TAM]){
     int cond=1, temp=0;
     for(int i=0; i<TAM; i++){}
+    for(int i=TAM-1; (i>=1) && (cond==1); i--){
+    cond=0;
+        for(int j=0; j<TAM;j++){
+            for(int k=0; k<i; k++){
+                if(cartela[j][k+1]<cartela[j][k]){
+                  temp=cartela[j][k];
+                  cartela[j][k]=0;
+                  cartela[j][k]=cartela[j][k+1];
+                  cartela[j][k+1]=temp;
+                  cond=1;
+                }
+            }
+        }
+    }
 }
 
 void exibir(int cartela[TAM][TAM])
