@@ -28,20 +28,20 @@ using namespace std;
 void menu()
 {
     cout << " ____ ___ _  _  ____  ___  " << endl;
-    cout << "| __ )_ _| \ | |/ ___|/ _  " << endl;
-    cout << "|  _ \ | ||  \| | |  _| | | |" << endl;
-    cout << "| |_) | || |\  | |_| | |_| |" << endl;
-    cout << "|____/___|_| \_| \____| ___/ " << endl;
+    cout << "| __ )_ _|  | |/ ___|/ _  " << endl;
+    cout << "|  _  | ||  | | |  _| | | |" << endl;
+    cout << "| |_) | || |  | |_| | |_| |" << endl;
+    cout << "|____/___|_| _| ____| ___/ " << endl;
+    cout << endl;
 }
 
 string preencher(int cartela[TAM][TAM])
 {
     for(int i=0; i<TAM; i++)
     {
-        int soma=15;
         for(int j=0; j<TAM; j++)
         {
-            cartela[i][j] = 1+i*15+(rand()%soma);
+            cartela[i][j] = 1+i*15+(rand()%15);
         }
     }
     string nome;
@@ -113,17 +113,6 @@ void textcolor (int forecolor, int backcolor) {
 void textbackground (int newcolor) {
     newcolor = newcolor << 4;
     SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (WHITE | newcolor));
-}
-
-void movimenta (int tecla, int *x, int *y)
-{
-    switch(tecla)
-    {
-        case 72: gotoxy(*x,--*y); break;      //cima
-        case 80: gotoxy(*x,++*y); break;     //baixo
-        case 75: gotoxy(--*x,*y); break;  //esquerda
-        case 77: gotoxy(++*x,*y); break;   //direita
-    }
 }
 
 int main()
