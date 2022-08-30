@@ -35,14 +35,30 @@ void menu()
     cout << endl;
 }
 
+bool verif(int cartela[][TAM],int temp){
+    for(int i=0;i<TAM;i++){
+        for(int j=0;j<TAM;j++){
+            if(cartela[i][j]==temp)
+                return true;
+        }
+    }
+    return false;
+}
+
 string preencher(int cartela[TAM][TAM])
 {
+    int temp;
     for(int i=0; i<TAM; i++)
     {
         for(int j=0; j<TAM; j++)
         {
-            cartela[i][j] = 1+i*15+(rand()%15);
+            temp = 1+i*15+(rand()%15);
+            while(verif(cartela,temp)){
+                temp = 1+i*15+(rand()%15);
+            }
+            cartela[i][j]=temp;
         }
+
     }
     string nome;
     cout << "De um nome para a cartela:";
