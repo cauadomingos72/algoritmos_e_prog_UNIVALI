@@ -174,12 +174,47 @@ void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
                 else
                 cout << cartela[i][j] << " ";
                 SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (15 | 0));
+
             }
         }
         cout << endl;
     }
     cout << endl;
 }
+bool bingo(int mat[TAM][TAM], int vet[TAM*15])
+{
+    int cont=0;
+    for(int i=0; i<TAM; i++)
+    {
+        for(int j=0; j<TAM; j++)
+        {
+            for(int k=0; k<TAM; k++)
+            {
+                if(mat[i][j]==vet[k])
+                cont++;
+            }
+        }
+    }
+    if(cont==25)
+    return true;
+    else
+    return false;
+}
+
+bool menufim(string name)
+{
+    clrscr();
+    cout << "A cartela de " << name << " venceu!";
+    cout << endl;
+    cout << "1 - Jogar Novamente\n2 - Fechar o jogo" << endl;
+    int opcao;
+    cin >> opcao;
+    if(opcao%2==0)
+    return false;
+    else
+    return true;
+}
+
 
 int main()
 {
@@ -207,12 +242,12 @@ int main()
         bubblesort(cartela5);
         for (int i=0; i<75; i++){
             clrscr();
+            sorteados[i] = sorteio();
             exibir(cartela1,nome1,sorteados);
             exibir(cartela2,nome2,sorteados);
             exibir(cartela3,nome3,sorteados);
             exibir(cartela4,nome4,sorteados);
             exibir(cartela5,nome5,sorteados);
-            sorteados[i] = sorteio();
             for(int j=0; j<TAM*15; j++)
             {
                 if(sorteados[j]!=0)
@@ -220,6 +255,22 @@ int main()
                 else
                 j=TAM*15;
             }
+            bool fim=false;
+            fim=bingo(cartela1, sorteados);
+            if(fim==true)
+            game=menufim(nome1);
+            fim=bingo(cartela2, sorteados);
+            if(fim==true)
+            game=menufim(nome2);
+            fim=bingo(cartela3, sorteados);
+            if(fim==true)
+            game=menufim(nome3);
+            fim=bingo(cartela4, sorteados);
+            if(fim==true)
+            game=menufim(nome4);
+            fim=bingo(cartela5, sorteados);
+            if(fim==true)
+            game=menufim(nome5);
             getch();
         }
     }
