@@ -188,7 +188,7 @@ bool bingo(int mat[TAM][TAM], int vet[TAM*15])
     {
         for(int j=0; j<TAM; j++)
         {
-            for(int k=0; k<TAM; k++)
+            for(int k=0; k<TAM*15; k++)
             {
                 if(mat[i][j]==vet[k])
                 cont++;
@@ -221,7 +221,8 @@ int main()
     setlocale(LC_ALL, "Portuguese");
     bool game = menu();
     textcolor(15,0);
-    while(game==true)
+    if (game==true)
+    do
     {
         clrscr();
         int cartela1[TAM][TAM]{0};
@@ -255,23 +256,54 @@ int main()
                 else
                 j=TAM*15;
             }
-            bool fim=false;
-            fim=bingo(cartela1, sorteados);
-            if(fim==true)
-            game=menufim(nome1);
-            fim=bingo(cartela2, sorteados);
-            if(fim==true)
-            game=menufim(nome2);
-            fim=bingo(cartela3, sorteados);
-            if(fim==true)
-            game=menufim(nome3);
-            fim=bingo(cartela4, sorteados);
-            if(fim==true)
-            game=menufim(nome4);
-            fim=bingo(cartela5, sorteados);
-            if(fim==true)
-            game=menufim(nome5);
             getch();
+            bool fim = false;
+
+            fim = bingo(cartela1, sorteados);
+            if(fim==true)
+            {
+            system("pause");
+            i = 0;
+            game = menufim(nome1);
+            break;
+            }
+
+            fim = bingo(cartela2, sorteados);
+            if(fim==true)
+            {
+            system("pause");
+            i = 0;
+            game = menufim(nome2);
+            break;
+            }
+
+            fim = bingo(cartela3, sorteados);
+            if(fim==true)
+            {
+            system("pause");
+            i = 0;
+            game = menufim(nome3);
+            break;
+            }
+
+            fim = bingo(cartela4, sorteados);
+            if(fim==true)
+            {
+            system("pause");
+            i = 0;
+            game = menufim(nome4);
+            break;
+            }
+
+            fim = bingo(cartela5, sorteados);
+            if(fim==true)
+            {
+            system("pause");
+            i = 0;
+            game = menufim(nome5);
+            break;
+            }
         }
-    }
+    }while(game==true);
+    return 0;
 }
