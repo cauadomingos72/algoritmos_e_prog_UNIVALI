@@ -28,11 +28,11 @@ using namespace std;
 bool menu()
 {
     int opcao;
-    cout << " __ _ _  _  __  _  " << endl;
-    cout << "| _ ) |  | |/ __|/ _  " << endl;
+    cout << " ____ ___ _  _  ____  ___  " << endl;
+    cout << "| __ )_ _|  | |/ ___|/ _  " << endl;
     cout << "|  _  | ||  | | |  _| | | |" << endl;
-    cout << "| |) | || |  | || | |_| |" << endl;
-    cout << "|_/_|| | __| __/ " << endl;
+    cout << "| |_) | || |  | |_| | |_| |" << endl;
+    cout << "|____/___|_| _| ____| ___/ " << endl;
     cout << endl;
     cout << "1 - Jogar\n2 - Fechar o jogo" << endl;
     cin >> opcao;
