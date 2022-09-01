@@ -173,6 +173,7 @@ void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
                 cout << "0" << cartela[i][j] << " ";
                 else
                 cout << cartela[i][j] << " ";
+                SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (15 | 0));
             }
         }
         cout << endl;
