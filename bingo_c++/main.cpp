@@ -25,14 +25,21 @@
 #define TAM 5
 using namespace std;
 
-void menu()
+bool menu()
 {
-    cout << " ____ ___ _  _  ____  ___  " << endl;
-    cout << "| __ )_ _|  | |/ ___|/ _  " << endl;
+    int opcao;
+    cout << " __ _ _  _  __  _  " << endl;
+    cout << "| _ ) |  | |/ __|/ _  " << endl;
     cout << "|  _  | ||  | | |  _| | | |" << endl;
-    cout << "| |_) | || |  | |_| | |_| |" << endl;
-    cout << "|____/___|_| _| ____| ___/ " << endl;
+    cout << "| |) | || |  | || | |_| |" << endl;
+    cout << "|_/_|| | __| __/ " << endl;
     cout << endl;
+    cout << "1 - Jogar\n2 - Fechar o jogo" << endl;
+    cin >> opcao;
+    if(opcao%2==0)
+    return false;
+    else
+    return true;
 }
 
 bool verif(int cartela[][TAM],int temp){
@@ -84,22 +91,27 @@ void bubblesort (int cartela[TAM][TAM]){
     }
 }
 
-void exibir(int cartela[TAM][TAM], string nome)
+int sorteio()
 {
-    cout << "Cartela de " << nome << endl;
-    for(int i=0; i<TAM; i++)
+    srand((unsigned) time(NULL));
+    static int numerosParaSortear[76] = {0};
+    int n;
+    bool mantemWhile = true;
+    do
     {
-        for(int j=0; j<TAM; j++)
+        n = rand()%75+1;
+
+        if (numerosParaSortear[n] == 0)
         {
-            if (cartela[i][j]<10)
-            cout << "0" << cartela[i][j] << " ";
-            else
-            cout << cartela[i][j] << " ";
+            numerosParaSortear[n] = n;
+            mantemWhile = false;
         }
-        cout << endl;
-    }
-    cout << endl;
+
+    } while (mantemWhile);
+
+    return n;
 }
+
 
 void gotoxy(int x, int y)
 {
@@ -114,7 +126,7 @@ void delay (unsigned long t) {
   Sleep(t);
 }
 
-int random (int max) {
+int random (int max){
    return (rand() % max) ;
 }
 
@@ -128,22 +140,51 @@ void textcolor (int forecolor, int backcolor) {
 
 void textbackground (int newcolor) {
     newcolor = newcolor << 4;
-    SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (WHITE | newcolor));
+    SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (2 | newcolor));
+}
+
+void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
+{
+    cout << "Cartela de " << nome << endl;
+
+
+    for(int i=0; i<TAM; i++)
+    {
+        for(int j=0; j<TAM; j++)
+        {
+            bool igual=false;
+            for(int k=0; k<TAM*15; k++)
+            {
+                if(cartela[i][j]==vet[k])
+                igual=true;
+            }
+            if(igual==false)
+            {
+                SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (15 | 0));
+                if (cartela[i][j]<10)
+                cout << "0" << cartela[i][j] << " ";
+                else
+                cout << cartela[i][j] << " ";
+            }
+            else if(igual==true)
+            {
+                SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (12 | 0));
+                if (cartela[i][j]<10)
+                cout << "0" << cartela[i][j] << " ";
+                else
+                cout << cartela[i][j] << " ";
+            }
+        }
+        cout << endl;
+    }
+    cout << endl;
 }
 
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
-    int opcao;
-    bool game;
+    bool game = menu();
     textcolor(15,0);
-    menu();
-    cout << "1 - Jogar\n2 - Fechar o jogo" << endl;
-    cin >> opcao;
-    if(opcao%2==0)
-    game=false;
-    else
-    game=true;
     while(game==true)
     {
         clrscr();
@@ -152,6 +193,7 @@ int main()
         int cartela3[TAM][TAM]{0};
         int cartela4[TAM][TAM]{0};
         int cartela5[TAM][TAM]{0};
+        int sorteados[TAM*15]{0};
         string nome1 = preencher(cartela1);
         bubblesort(cartela1);
         string nome2 = preencher(cartela2);
@@ -162,17 +204,22 @@ int main()
         bubblesort(cartela4);
         string nome5 = preencher(cartela5);
         bubblesort(cartela5);
-        clrscr();
-        textcolor(10,0);
-        exibir(cartela1,nome1);
-        textcolor(12,0);
-        exibir(cartela2,nome2);
-        textcolor(13,0);
-        exibir(cartela3,nome3);
-        textcolor(14,0);
-        exibir(cartela4,nome4);
-        textcolor(15,0);
-        exibir(cartela5,nome5);
-        system("pause");
+        for (int i=0; i<75; i++){
+            clrscr();
+            exibir(cartela1,nome1,sorteados);
+            exibir(cartela2,nome2,sorteados);
+            exibir(cartela3,nome3,sorteados);
+            exibir(cartela4,nome4,sorteados);
+            exibir(cartela5,nome5,sorteados);
+            sorteados[i] = sorteio();
+            for(int j=0; j<TAM*15; j++)
+            {
+                if(sorteados[j]!=0)
+                cout << sorteados[j] << endl;
+                else
+                j=TAM*15;
+            }
+            getch();
+        }
     }
 }
