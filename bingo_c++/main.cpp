@@ -91,7 +91,7 @@ void bubblesort (int cartela[TAM][TAM]){
     }
 }
 
-int sorteio()
+int sorteio(bool zero)
 {
     srand((unsigned) time(NULL));
     static int numerosParaSortear[76] = {0};
@@ -108,7 +108,9 @@ int sorteio()
         }
 
     } while (mantemWhile);
-
+    if(zero==true)
+    for(int i=0; i<77; i++)
+    numerosParaSortear[i]=0;
     return n;
 }
 
@@ -224,6 +226,8 @@ int main()
     if (game==true)
     do
     {
+        bool zerar=true;
+        sorteio(zerar);
         clrscr();
         int cartela1[TAM][TAM]{0};
         int cartela2[TAM][TAM]{0};
@@ -243,7 +247,8 @@ int main()
         bubblesort(cartela5);
         for (int i=0; i<75; i++){
             clrscr();
-            sorteados[i] = sorteio();
+            zerar=false;
+            sorteados[i] = sorteio(zerar);
             exibir(cartela1,nome1,sorteados);
             exibir(cartela2,nome2,sorteados);
             exibir(cartela3,nome3,sorteados);
@@ -263,7 +268,6 @@ int main()
             if(fim==true)
             {
             system("pause");
-            i = 0;
             game = menufim(nome1);
             break;
             }
@@ -272,7 +276,6 @@ int main()
             if(fim==true)
             {
             system("pause");
-            i = 0;
             game = menufim(nome2);
             break;
             }
@@ -281,7 +284,6 @@ int main()
             if(fim==true)
             {
             system("pause");
-            i = 0;
             game = menufim(nome3);
             break;
             }
@@ -290,7 +292,6 @@ int main()
             if(fim==true)
             {
             system("pause");
-            i = 0;
             game = menufim(nome4);
             break;
             }
@@ -299,11 +300,9 @@ int main()
             if(fim==true)
             {
             system("pause");
-            i = 0;
             game = menufim(nome5);
             break;
             }
         }
     }while(game==true);
-    return 0;
 }
