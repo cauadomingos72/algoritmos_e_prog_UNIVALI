@@ -42,11 +42,14 @@ bool menu()
     return true;
 }
 
-bool verif(int cartela[][TAM],int temp){
-    for(int i=0;i<TAM;i++){
-        for(int j=0;j<TAM;j++){
+bool verif(int cartela[][TAM],int temp)
+{
+    for(int i=0;i<TAM;i++)
+    {
+        for(int j=0;j<TAM;j++)
+        {
             if(cartela[i][j]==temp)
-                return true;
+            return true;
         }
     }
     return false;
@@ -60,12 +63,12 @@ string preencher(int cartela[TAM][TAM])
         for(int j=0; j<TAM; j++)
         {
             temp = 1+i*15+(rand()%15);
-            while(verif(cartela,temp)){
+            while(verif(cartela,temp))
+            {
                 temp = 1+i*15+(rand()%15);
             }
             cartela[i][j]=temp;
         }
-
     }
     string nome;
     cout << "De um nome para a cartela:";
@@ -114,42 +117,17 @@ int sorteio(bool zero)
     return n;
 }
 
-
-void gotoxy(int x, int y)
-{
-   SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),(COORD){x,y});
-}
-
 void clrscr(){
   system("cls");
-}
-
-void delay (unsigned long t) {
-  Sleep(t);
-}
-
-int random (int max){
-   return (rand() % max) ;
-}
-
-void randomize() {
-   srand((unsigned) time(NULL));
 }
 
 void textcolor (int forecolor, int backcolor) {
 	SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (forecolor | backcolor<<4));
 }
 
-void textbackground (int newcolor) {
-    newcolor = newcolor << 4;
-    SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (2 | newcolor));
-}
-
 void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
 {
     cout << "Cartela de " << nome << endl;
-
-
     for(int i=0; i<TAM; i++)
     {
         for(int j=0; j<TAM; j++)
@@ -162,7 +140,7 @@ void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
             }
             if(igual==false)
             {
-                SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (15 | 0));
+                textcolor (BRIGHTWHITE, BLACK);
                 if (cartela[i][j]<10)
                 cout << "0" << cartela[i][j] << " ";
                 else
@@ -170,19 +148,19 @@ void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
             }
             else if(igual==true)
             {
-                SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (12 | 0));
+                textcolor (LIGHTRED, BLACK);
                 if (cartela[i][j]<10)
                 cout << "0" << cartela[i][j] << " ";
                 else
                 cout << cartela[i][j] << " ";
-                SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (15 | 0));
-
+                textcolor (BRIGHTWHITE, BLACK);
             }
         }
         cout << endl;
     }
     cout << endl;
 }
+
 bool bingo(int mat[TAM][TAM], int vet[TAM*15])
 {
     int cont=0;
@@ -217,6 +195,21 @@ bool menufim(string name)
     return true;
 }
 
+void marcados(int sorteados[TAM*15])
+{
+    for(int j=0; j<TAM*15; j++)
+    {
+        if(sorteados[j]!=0)
+        {
+            if (sorteados[j]<10)
+            cout << "0" << sorteados[j] << " ";
+            else
+            cout << sorteados[j] << " ";
+        }
+        else
+        j=TAM*15;
+    }
+}
 
 int main()
 {
@@ -228,22 +221,22 @@ int main()
     {
         bool zerar=true;
         sorteio(zerar);
+        int sorteados[TAM*15]{0};
         clrscr();
         int cartela1[TAM][TAM]{0};
         int cartela2[TAM][TAM]{0};
         int cartela3[TAM][TAM]{0};
         int cartela4[TAM][TAM]{0};
         int cartela5[TAM][TAM]{0};
-        int sorteados[TAM*15]{0};
         string nome1 = preencher(cartela1);
-        bubblesort(cartela1);
         string nome2 = preencher(cartela2);
-        bubblesort(cartela2);
         string nome3 = preencher(cartela3);
-        bubblesort(cartela3);
         string nome4 = preencher(cartela4);
-        bubblesort(cartela4);
         string nome5 = preencher(cartela5);
+        bubblesort(cartela1);
+        bubblesort(cartela2);
+        bubblesort(cartela3);
+        bubblesort(cartela4);
         bubblesort(cartela5);
         for (int i=0; i<75; i++){
             clrscr();
@@ -254,16 +247,9 @@ int main()
             exibir(cartela3,nome3,sorteados);
             exibir(cartela4,nome4,sorteados);
             exibir(cartela5,nome5,sorteados);
-            for(int j=0; j<TAM*15; j++)
-            {
-                if(sorteados[j]!=0)
-                cout << sorteados[j] << endl;
-                else
-                j=TAM*15;
-            }
+            marcados(sorteados);
             getch();
             bool fim = false;
-
             fim = bingo(cartela1, sorteados);
             if(fim==true)
             {
@@ -271,7 +257,6 @@ int main()
             game = menufim(nome1);
             break;
             }
-
             fim = bingo(cartela2, sorteados);
             if(fim==true)
             {
@@ -279,7 +264,6 @@ int main()
             game = menufim(nome2);
             break;
             }
-
             fim = bingo(cartela3, sorteados);
             if(fim==true)
             {
@@ -287,7 +271,6 @@ int main()
             game = menufim(nome3);
             break;
             }
-
             fim = bingo(cartela4, sorteados);
             if(fim==true)
             {
@@ -295,7 +278,6 @@ int main()
             game = menufim(nome4);
             break;
             }
-
             fim = bingo(cartela5, sorteados);
             if(fim==true)
             {
@@ -305,4 +287,5 @@ int main()
             }
         }
     }while(game==true);
+    return 0;
 }
