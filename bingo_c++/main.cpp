@@ -1,3 +1,4 @@
+//Alunos: Cauã Domingos, Paulo Martino Hermans, Thyago Magalhães do Nascimento e Vinícius Henrique Ribeiro.
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -42,11 +43,14 @@ bool menu()
     return true;
 }
 
-bool verif(int cartela[][TAM],int temp){
-    for(int i=0;i<TAM;i++){
-        for(int j=0;j<TAM;j++){
+bool verif(int cartela[][TAM],int temp)
+{
+    for(int i=0;i<TAM;i++)
+    {
+        for(int j=0;j<TAM;j++)
+        {
             if(cartela[i][j]==temp)
-                return true;
+            return true;
         }
     }
     return false;
@@ -60,12 +64,12 @@ string preencher(int cartela[TAM][TAM])
         for(int j=0; j<TAM; j++)
         {
             temp = 1+i*15+(rand()%15);
-            while(verif(cartela,temp)){
+            while(verif(cartela,temp))
+            {
                 temp = 1+i*15+(rand()%15);
             }
             cartela[i][j]=temp;
         }
-
     }
     string nome;
     cout << "De um nome para a cartela:";
@@ -94,14 +98,14 @@ void bubblesort (int cartela[TAM][TAM]){
 int sorteio(bool zero)
 {
     srand((unsigned) time(NULL));
-    static int numerosParaSortear[76] = {0};
+    static int numerosParaSortear[76] = {0};  //Variável estática para armazenamento dos valores durante todas as execuções da função.
     int n;
     bool mantemWhile = true;
     do
     {
         n = rand()%75+1;
 
-        if (numerosParaSortear[n] == 0)
+        if (numerosParaSortear[n] == 0)  //Lógica que mantém o laço rodando até que um valor novo seja obtido.
         {
             numerosParaSortear[n] = n;
             mantemWhile = false;
@@ -109,47 +113,22 @@ int sorteio(bool zero)
 
     } while (mantemWhile);
     if(zero==true)
-    for(int i=0; i<77; i++)
+    for(int i=0; i<77; i++)  //Laço e lógica que zeram a variável ao reiniciar o jogo. 
     numerosParaSortear[i]=0;
     return n;
-}
-
-
-void gotoxy(int x, int y)
-{
-   SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),(COORD){x,y});
 }
 
 void clrscr(){
   system("cls");
 }
 
-void delay (unsigned long t) {
-  Sleep(t);
-}
-
-int random (int max){
-   return (rand() % max) ;
-}
-
-void randomize() {
-   srand((unsigned) time(NULL));
-}
-
 void textcolor (int forecolor, int backcolor) {
 	SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (forecolor | backcolor<<4));
-}
-
-void textbackground (int newcolor) {
-    newcolor = newcolor << 4;
-    SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (2 | newcolor));
 }
 
 void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
 {
     cout << "Cartela de " << nome << endl;
-
-
     for(int i=0; i<TAM; i++)
     {
         for(int j=0; j<TAM; j++)
@@ -162,27 +141,27 @@ void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
             }
             if(igual==false)
             {
-                SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (15 | 0));
+                textcolor (BRIGHTWHITE, BLACK);
                 if (cartela[i][j]<10)
-                cout << "0" << cartela[i][j] << " ";
+                cout << "0" << cartela[i][j] << " ";  //Lógica para organização dos caracteres, adicionando um 0 na casa da dezena dos números menores que 10.
                 else
                 cout << cartela[i][j] << " ";
             }
             else if(igual==true)
             {
-                SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (12 | 0));
+                textcolor (LIGHTRED, BLACK);
                 if (cartela[i][j]<10)
                 cout << "0" << cartela[i][j] << " ";
                 else
                 cout << cartela[i][j] << " ";
-                SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (15 | 0));
-
+                textcolor (BRIGHTWHITE, BLACK);
             }
         }
         cout << endl;
     }
     cout << endl;
 }
+
 bool bingo(int mat[TAM][TAM], int vet[TAM*15])
 {
     int cont=0;
@@ -217,92 +196,91 @@ bool menufim(string name)
     return true;
 }
 
+void marcados(int sorteados[TAM*15])
+{
+    for(int j=0; j<TAM*15; j++)  //Laço que percorre o vetor.
+    {
+        if(sorteados[j]!=0)  //Lógica que determina o fim da exibição do vetor se baseado em valores diferentes de zero.
+        {
+            if (sorteados[j]<10)  
+            cout << "0" << sorteados[j] << " ";
+            else
+            cout << sorteados[j] << " ";
+        }
+        else
+        j=TAM*15;  //Caso o resto do vetor esteja vazio, esta linha encerra o laço.
+    }
+}
 
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
-    bool game = menu();
-    textcolor(15,0);
-    if (game==true)
+    bool game = menu();  //Variável usada durante todo o programa e serve para fazer o jogo continuar rodando até que seja fechado.
+    textcolor(15,0);  //Função usada para alterar a cor dos caracteres a serem apresentados.
+    if (game==true)  //Lógica de continuação ou encerramento do jogo.
     do
     {
-        bool zerar=true;
-        sorteio(zerar);
-        clrscr();
-        int cartela1[TAM][TAM]{0};
+        bool zerar=true;  //Variável que apaga os números sorteados na execução anterior do programa ou determina a gravação dos mesmos no main.
+        sorteio(zerar);  //Função que sorteia números aleatórios de 1 a 75. Utiliza uma variável estática que necessita de uma variável no main para ser zerada.
+        zerar=false;
+        int sorteados[TAM*15]{0};  //Vetor que armazena os números sorteados.
+        clrscr();  //Função que apaga todos os caracteres exibidos no programa
+        int cartela1[TAM][TAM]{0};  //Matrizes para as cartélas.
         int cartela2[TAM][TAM]{0};
         int cartela3[TAM][TAM]{0};
         int cartela4[TAM][TAM]{0};
         int cartela5[TAM][TAM]{0};
-        int sorteados[TAM*15]{0};
-        string nome1 = preencher(cartela1);
-        bubblesort(cartela1);
+        string nome1 = preencher(cartela1);  //Variáveis para os nomes e função que determina os números e o nome a ser escolhido.
         string nome2 = preencher(cartela2);
-        bubblesort(cartela2);
         string nome3 = preencher(cartela3);
-        bubblesort(cartela3);
         string nome4 = preencher(cartela4);
-        bubblesort(cartela4);
         string nome5 = preencher(cartela5);
+        bubblesort(cartela1);  //Função para ordenação dos valores.
+        bubblesort(cartela2);
+        bubblesort(cartela3);
+        bubblesort(cartela4);
         bubblesort(cartela5);
-        for (int i=0; i<75; i++){
+        for (int i=0; i<75; i++){  //Laço de repetição para as jogadas.
             clrscr();
-            zerar=false;
-            sorteados[i] = sorteio(zerar);
-            exibir(cartela1,nome1,sorteados);
+            sorteados[i] = sorteio(zerar);  //Após o valor da variável ser trocado depois da última execução, a função passará a armazenar valores no vetor.
+            exibir(cartela1,nome1,sorteados);  //Função que exibe o nome e os números da cartela na tela .
             exibir(cartela2,nome2,sorteados);
             exibir(cartela3,nome3,sorteados);
             exibir(cartela4,nome4,sorteados);
             exibir(cartela5,nome5,sorteados);
-            for(int j=0; j<TAM*15; j++)
-            {
-                if(sorteados[j]!=0)
-                cout << sorteados[j] << endl;
-                else
-                j=TAM*15;
-            }
-            getch();
-            bool fim = false;
-
-            fim = bingo(cartela1, sorteados);
-            if(fim==true)
+            marcados(sorteados);  //Função que exibe os números já sorteados.
+            getch();  //Comando que exige uma digitação para a continuação do programa.
+            if(bingo(cartela1, sorteados)==true)  //Função e lógica para determinar o vencedor.
             {
             system("pause");
-            game = menufim(nome1);
+            game = menufim(nome1); //Função que mostra a cartela vencedora e as opções de continuação ou encerramento.
             break;
             }
-
-            fim = bingo(cartela2, sorteados);
-            if(fim==true)
+            if(bingo(cartela2, sorteados)==true)
             {
             system("pause");
             game = menufim(nome2);
             break;
             }
-
-            fim = bingo(cartela3, sorteados);
-            if(fim==true)
+            if(bingo(cartela3, sorteados)==true)
             {
             system("pause");
             game = menufim(nome3);
             break;
             }
-
-            fim = bingo(cartela4, sorteados);
-            if(fim==true)
+            if(bingo(cartela4, sorteados)==true)
             {
             system("pause");
             game = menufim(nome4);
             break;
             }
-
-            fim = bingo(cartela5, sorteados);
-            if(fim==true)
+            if(bingo(cartela5, sorteados)==true)
             {
             system("pause");
             game = menufim(nome5);
             break;
             }
         }
-    }while(game==true);
+    }while(game==true);  //Lógica que garante a continuação do jogo.
+    return 0;
 }
