@@ -49,11 +49,11 @@ bool verif(int cartela[][TAM],int temp)
     {
         for(int j=0;j<TAM;j++)
         {
-            if(cartela[i][j]==temp)
-            return true;
+            if(cartela[i][j]==temp) //Verifica se o valor gerado na variável "temp" já está inserido na cartela.
+            return true; //Retorna "true" caso o valor no "temp" já esteja na cartela.
         }
     }
-    return false;
+    return false; //Retorna "false" caso o valor no "temp" não esteja na cartela.
 }
 
 string preencher(int cartela[TAM][TAM])
@@ -63,8 +63,8 @@ string preencher(int cartela[TAM][TAM])
     {
         for(int j=0; j<TAM; j++)
         {
-            temp = 1+i*15+(rand()%15);
-            while(verif(cartela,temp))
+            temp = 1+i*15+(rand()%15); //Valor gerado de maneira controlada de acordo com a linha, seguindo uma ordem de 15 em 15.
+            while(verif(cartela,temp)) //Laço que garante que não insira um valor repetido na cartela.
             {
                 temp = 1+i*15+(rand()%15);
             }
@@ -113,7 +113,7 @@ int sorteio(bool zero)
 
     } while (mantemWhile);
     if(zero==true)
-    for(int i=0; i<77; i++)  //Laço e lógica que zeram a variável ao reiniciar o jogo. 
+    for(int i=0; i<77; i++)  //Laço e lógica que zeram a variável ao reiniciar o jogo.
     numerosParaSortear[i]=0;
     return n;
 }
@@ -202,7 +202,7 @@ void marcados(int sorteados[TAM*15])
     {
         if(sorteados[j]!=0)  //Lógica que determina o fim da exibição do vetor se baseado em valores diferentes de zero.
         {
-            if (sorteados[j]<10)  
+            if (sorteados[j]<10)
             cout << "0" << sorteados[j] << " ";
             else
             cout << sorteados[j] << " ";
