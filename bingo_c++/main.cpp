@@ -134,10 +134,15 @@ void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
         for(int j=0; j<TAM; j++)
         {
             bool igual=false;
-            for(int k=0; k<TAM*15; k++)
+            for(int k=1; k<TAM*15; k++)
             {
-                if(cartela[i][j]==vet[k])
-                igual=true;
+                if(vet[k]!=0)
+                {
+                    if(cartela[i][j]==vet[k])
+                    igual=true;
+                }
+                else
+                k=TAM*15;
             }
             if(igual==false)
             {
@@ -198,7 +203,7 @@ bool menufim(string name)
 
 void marcados(int sorteados[TAM*15])
 {
-    for(int j=0; j<TAM*15; j++)  //Laço que percorre o vetor.
+    for(int j=1; j<TAM*15; j++)  //Laço que percorre o vetor.
     {
         if(sorteados[j]!=0)  //Lógica que determina o fim da exibição do vetor se baseado em valores diferentes de zero.
         {
@@ -242,6 +247,7 @@ int main()
         bubblesort(cartela5);
         for (int i=0; i<75; i++){  //Laço de repetição para as jogadas.
             clrscr();
+            if(i!=0)
             sorteados[i] = sorteio(zerar);  //Após o valor da variável ser trocado depois da última execução, a função passará a armazenar valores no vetor.
             exibir(cartela1,nome1,sorteados);  //Função que exibe o nome e os números da cartela na tela .
             exibir(cartela2,nome2,sorteados);
