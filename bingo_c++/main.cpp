@@ -26,7 +26,7 @@
 #define TAM 5
 using namespace std;
 
-bool menu()
+bool menu()  //Cria um menu ao abrir o jogo.
 {
     int opcao;
     cout << " ____ ___ _  _  ____  ___  " << endl;
@@ -37,7 +37,7 @@ bool menu()
     cout << endl;
     cout << "1 - Jogar\n2 - Fechar o jogo" << endl;
     cin >> opcao;
-    if(opcao%2==0)
+    if(opcao!=1)
     return false;
     else
     return true;
@@ -77,17 +77,17 @@ string preencher(int cartela[TAM][TAM])
     return nome;
 }
 
-void bubblesort (int cartela[TAM][TAM]){
+void bubblesort (int cartela[TAM][TAM]){  //Função de ordenação crescente para cada linha da cartela.
     int cond=1, temp=0;
     for(int i=TAM-1; (i>=1) && (cond==1); i--){
     cond=0;
         for(int j=0; j<TAM;j++){
             for(int k=0; k<i; k++){
-                if(cartela[j][k+1]<cartela[j][k]){
+                if(cartela[j][k+1]<cartela[j][k]){  //Condição que confere a ordem crescente da linha da matriz.
                   temp=cartela[j][k];
                   cartela[j][k]=0;
                   cartela[j][k]=cartela[j][k+1];
-                  cartela[j][k+1]=temp;
+                  cartela[j][k+1]=temp;  //Caso esteja fora de ordem, os valores são trocados de posição com o uso de uma variável temporaria.
                   cond=1;
                 }
             }
@@ -126,9 +126,9 @@ void textcolor (int forecolor, int backcolor) {
 	SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), (WORD) (forecolor | backcolor<<4));
 }
 
-void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
+void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])  //Função para exibição das cartelas, dos números marcados e dos nomes.
 {
-    cout << "Cartela de " << nome << endl;
+    cout << "Cartela de " << nome << endl;  //Exibição do nome da cartela.
     for(int i=0; i<TAM; i++)
     {
         for(int j=0; j<TAM; j++)
@@ -136,7 +136,7 @@ void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
             bool igual=false;
             for(int k=1; k<TAM*15; k++)
             {
-                if(vet[k]!=0)
+                if(vet[k]!=0)  //Lógica para marcação de números sorteados.
                 {
                     if(cartela[i][j]==vet[k])
                     igual=true;
@@ -144,7 +144,7 @@ void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
                 else
                 k=TAM*15;
             }
-            if(igual==false)
+            if(igual==false)  //Condição de número não marcado.
             {
                 textcolor (BRIGHTWHITE, BLACK);
                 if (cartela[i][j]<10)
@@ -152,7 +152,7 @@ void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
                 else
                 cout << cartela[i][j] << " ";
             }
-            else if(igual==true)
+            else if(igual==true) //Condição de número marcado.
             {
                 textcolor (LIGHTRED, BLACK);
                 if (cartela[i][j]<10)
@@ -167,7 +167,7 @@ void exibir(int cartela[TAM][TAM], string nome, int vet[TAM*15])
     cout << endl;
 }
 
-bool bingo(int mat[TAM][TAM], int vet[TAM*15])
+bool bingo(int mat[TAM][TAM], int vet[TAM*15])  //Função para condição de vitória.
 {
     int cont=0;
     for(int i=0; i<TAM; i++)
@@ -176,18 +176,18 @@ bool bingo(int mat[TAM][TAM], int vet[TAM*15])
         {
             for(int k=0; k<TAM*15; k++)
             {
-                if(mat[i][j]==vet[k])
+                if(mat[i][j]==vet[k])  //Compara os valores e armazena o numero de números iguais.
                 cont++;
             }
         }
     }
-    if(cont==25)
+    if(cont==25)  //Caso a cartela esteja com os 25 números marcados, ela vence.
     return true;
     else
     return false;
 }
 
-bool menufim(string name)
+bool menufim(string name)  //Um novo menu para repetição ou encerramento do jogo.
 {
     clrscr();
     cout << "A cartela de " << name << " venceu!";
@@ -195,7 +195,7 @@ bool menufim(string name)
     cout << "1 - Jogar Novamente\n2 - Fechar o jogo" << endl;
     int opcao;
     cin >> opcao;
-    if(opcao%2==0)
+    if(opcao!=1)
     return false;
     else
     return true;
