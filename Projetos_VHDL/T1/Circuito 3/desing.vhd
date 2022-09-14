@@ -5,7 +5,7 @@ entity codi2_hot is
 port(  i_A : in std_logic;
        i_B : in std_logic;
        o_S : out bit_vector(3 downto 0));
-end codi2_4bits;
+end codi2_hot;
 
 architecture arch_1 of codi2_hot is
 begin
