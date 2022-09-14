@@ -10,12 +10,6 @@ end demux2_1bit;
 
 architecture arch_1 of demux2_1bit is
 begin
-  process(i_SEL, i_A)
-    begin
-    if (i_SEL='0') then
-    o_R <= i_A;
-    else
-    o_S <= i_A;
-    end if;
-  end process;
+  o_R <= (i_A and not i_SEL);
+  o_S <= (i_A and i_SEL);
 end arch_1;
