@@ -1,15 +1,18 @@
-library IEEE;
-use IEEE.std_logic_1164.all;
+library ieee;
+use ieee.std_logic_1164.all;
 
-entity demux2_1bit is
-port( i_SEL : in std_logic;
-      i_A : in std_logic;
-      o_R : out std_logic;
-      o_S : out std_logic);
-end demux2_1bit;
+entity demux1_2bit is
+port ( i_SEL : in std_logic; -- Seletor de entradas a ser usada
+	   i_S : in std_logic; -- Entrada
+	   o_A : out std_logic; -- Saída A
+       o_B : out std_logic); -- Saída B
+end demux1_2bit;
 
-architecture arch_1 of demux2_1bit is
+architecture arch_1 of demux1_2bit is
 begin
-  o_R <= (i_A and not i_SEL);
-  o_S <= (i_A and i_SEL);
+      	process(i_SEL, i_S)
+      	begin
+				o_A <= (i_S and not i_SEL);
+				o_B <= (i_S and i_SEL);
+		end process;
 end arch_1;
