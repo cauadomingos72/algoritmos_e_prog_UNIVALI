@@ -8,7 +8,7 @@ using namespace std;
 template <typename tipo>
 struct fracao
 {
-  int numerador, denominador;
+  tipo numerador, denominador;
 };
 
 template <typename tipo>
@@ -26,39 +26,47 @@ void leitura (fracao<tipo> &num1, fracao<tipo> &num2)
 }
 
 template <typename tipo>
-void soma (fracao<tipo> num1, fracao<tipo> num2)
+void resultado (fracao<tipo> res)
 {
+  cout<< res.numerador << endl;
+  cout<< "--" << endl;
+  cout<< res.denominador << endl;
+}
+
+template <typename tipo>
+fracao<tipo> operator+ (fracao<tipo> num1, fracao<tipo> num2)
+{
+  fracao<tipo> res;
   if(num1.denominador == num2.denominador)
   {
     num1.numerador+=num2.numerador;
-    cout<< num1.numerador << endl;
-    cout<< "--" << endl;
-    cout<< num1.denominador << endl;
+    res.numerador = num1.numerador;
+    res.denominador = num1.denominador;
+    return res;
   } 
   else
   {
     int temp;
     num1.numerador *= num2.denominador;
     num2.numerador *= num1.denominador;
-    temp = num1.denominador;
     num1.denominador *= num2.denominador;
-    num2.denominador *= temp;
     num1.numerador+=num2.numerador;
-    cout<< num1.numerador << endl;
-    cout<< "--" << endl;
-    cout<< num1.denominador << endl;
+    res.numerador = num1.numerador;
+    res.denominador = num1.denominador;
+    return res;
   }
 }
 
 template <typename tipo>
-void sub (fracao<tipo> num1, fracao<tipo> num2)
+fracao<tipo> operator- (fracao<tipo> num1, fracao<tipo> num2)
 {
+  fracao<tipo> res;
   if(num1.denominador == num2.denominador)
   {
     num1.numerador-=num2.numerador;
-    cout<< num1.numerador << endl;
-    cout<< "--" << endl;
-    cout<< num1.denominador << endl;
+    res.numerador = num1.numerador;
+    res.denominador = num1.denominador;
+    return res;
   } 
   else
   {
@@ -69,32 +77,32 @@ void sub (fracao<tipo> num1, fracao<tipo> num2)
     num1.denominador *= num2.denominador;
     num2.denominador *= temp;
     num1.numerador-=num2.numerador;
-    cout<< num1.numerador << endl;
-    cout<< "--" << endl;
-    cout<< num1.denominador << endl;
+    res.numerador = num1.numerador;
+    res.denominador = num1.denominador;
+    return res;
   }
 }
 
 template<typename tipo>
-void mult(fracao<tipo> num1, fracao<tipo> num2)
+fracao<tipo> operator* (fracao<tipo> num1, fracao<tipo> num2)
 {
+  fracao<tipo> res;
   num1.numerador *= num2.numerador;
   num1.denominador *= num2.denominador;
-  cout<< num1.numerador << endl;
-  cout<< "--" << endl;
-  cout<< num1.denominador << endl;
-  
+  res.numerador = num1.numerador;
+  res.denominador = num1.denominador;
+  return res;
 }
 
 template<typename tipo>
-void div(fracao<tipo> num1, fracao<tipo> num2)
+fracao<tipo> operator/ (fracao<tipo> num1, fracao<tipo> num2)
 {
+  fracao<tipo> res;
   num1.numerador *= num2.denominador;
   num1.denominador *= num2.numerador;
-  cout<< num1.numerador << endl;
-  cout<< "--" << endl;
-  cout<< num1.denominador << endl;
-  
+  res.numerador = num1.numerador;
+  res.denominador = num1.denominador;
+  return res;
 }
 
 int rod(int &rodar)
@@ -107,7 +115,7 @@ int rod(int &rodar)
 
 int main() {
   setlocale(LC_ALL, "Portuguese");
-  fracao<int> num1,num2;
+  fracao<int> num1,num2, res;
   int opc, rodar=1;
 
   do{
@@ -122,28 +130,32 @@ int main() {
       case 1:
       leitura(num1,num2);
       system("clear");
-      soma(num1,num2);
+      res = num1 + num2;
+      resultado(res);
       rod(rodar);
       break;
 
       case 2:
       leitura(num1,num2);
       system("clear");
-      sub(num1,num2);
+      res = num1 - num2;
+      resultado(res);
       rod(rodar);  
       break;
 
       case 3:
       leitura(num1,num2);
       system("clear");
-      mult(num1,num2);
+      res = num1 * num2;
+      resultado(res);
       rod(rodar);
       break;
 
       case 4:
       leitura(num1,num2);
       system("clear");
-      div(num1,num2);
+      res = num1 / num2;
+      resultado(res);
       rod(rodar);
       break;
 
