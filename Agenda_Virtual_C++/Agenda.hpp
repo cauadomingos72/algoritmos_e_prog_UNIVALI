@@ -7,10 +7,10 @@ using namespace std;
 
 struct Pessoal
 {
-    string ID;
-    string CPF;
+    int ID;
+    long long int CPF;
     string nome;
-    string celular;
+    long long int  celular;
 };
 
 bool operator==(const Pessoal &p1, const Pessoal &p2)
@@ -27,10 +27,10 @@ bool operator!=(const Pessoal &p1, const Pessoal &p2)
 
 struct Comercial
 {
-    string ID;
-    string CNPJ;
+    int  ID;
+    long long int  CNPJ;
     string nome;
-    string telefone;
+    long long int  telefone;
 };
 
 bool operator==(const Comercial &p1, const Comercial &p2)
@@ -81,7 +81,7 @@ bool remova(Agenda <TIPO,MAX> &ag, TIPO dado)
                 ag.itens[j] = ag.itens[j+1];
                 ag.itens[j+1] = dadoVazio;
             }
-           
+
             deletado = true;
             ag.quantidade--;
         }
@@ -89,26 +89,3 @@ bool remova(Agenda <TIPO,MAX> &ag, TIPO dado)
 
     return deletado;
 }
-
-///Codigo que converte um objeto string e retorna um long long int (porque botei o cpf, celular... em forma de string)
-long long int convercao(string objeto)
-{
-    int length = objeto.length();
-    int *numeroPtr = new int[length];
-    int k = 0;
-   
-    for (int i=0; i<length; i++){
-        if (isdigit(objeto[i])){
-            numeroPtr[k] = (objeto[i] - '0');
-            k++;
-        }
-    }
-
-    long long int numero = 0;
-    for (int i=0; i<k; i++){
-        numero += numeroPtr[i]*(pow(10, k - 1 - i));
-    }
-
-    return numero;
-}
-///Codigo que converte um objeto string e retorna um long long int
