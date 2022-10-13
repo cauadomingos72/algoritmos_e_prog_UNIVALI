@@ -2,7 +2,7 @@
 #include <string>
 #include <cstdio>
 #include "windows.h"
-#include "Agenda.hpp"
+#include "Agenda.h"
 
 using namespace std;
 
@@ -68,7 +68,7 @@ int procura_dados(const char *frase, const Agenda<T,MAX> &ag)
         if (ag.itens[i].ID == ID_produrado)
             return i;
     }
-    
+
     return -1;
 }
 
@@ -79,27 +79,28 @@ void selecao(int &opcao) {
 }
 
 void selecao2(int &opcao, int posicao) {
-    if (posicao >= 0){
+    if (posicao < 0){
         cout<<"Dado nao encontrado"<<endl;
+    }
         cout<<"Tentar novamente? (1 = sim ou qualquer numero = nao)"<<endl;
         cin>>opcao;
-    }
 }
 
 int main()
-{   
-    Agenda<Pessoal,100> agp;
-    Agenda<Comercial,100> agc;
+{
+    Agenda<Pessoal,5> agp;
+    inicializa_agenda(agp);
+    Agenda<Comercial,5> agc;
+    inicializa_agenda(agc);
     Pessoal pessoa;
     Comercial comercio;
 
     int op;
     do {
         op = menu();
-
+        int opcao, posicao;
         switch (op){
             case 1:
-                int opcao;
                 selecao(opcao);
                 if (opcao == 1){
                     registra_dados_pessoais("Insira seu ID, nome, CPF e numero de celular respectivamente.", pessoa);
@@ -112,29 +113,27 @@ int main()
             break;
 
             case 2:
-                int opcao, posicao;
                 do {
                     selecao(opcao);
-                    
+
                     if (opcao == 1){
                         posicao = procura_dados("Insira o dado que deseja remover da agenda pessoal (ID):", agp);
                         if (posicao >= 0)
-                            remova(agp, agp.itens[posicao])
+                            remova(agp, agp.itens[posicao]);
                     }
                     if (opcao == 2){
                         posicao = procura_dados("Insira o dado que deseja remover da agenda comercial (ID):", agc);
                         if (posicao >= 0)
-                            remova(agc, agc.itens[posicao])
+                            remova(agc, agc.itens[posicao]);
                     }
                     selecao2(opcao, posicao);
                 } while (opcao == 1);
             break;
 
             case 3:
-                int opcao, posicao;
                 do {
                     selecao(opcao);
-                    
+
                     if (opcao == 1){
                         posicao = procura_dados("Insira o dado que deseja procurar na agenda pessoal:", agp);
                         if (posicao >= 0)
