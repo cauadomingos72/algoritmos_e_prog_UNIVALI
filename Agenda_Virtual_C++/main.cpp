@@ -104,15 +104,19 @@ int main()
 
             case 3:
                 int op;
-                cout<<"Escolha uma opcao de identificacao:"<<endl;
-                cout<<"1 - Pessoal"<<endl;
-                cout<<"2 - Comercial"<<endl;
-                cin>>op;
-                
-                if(op==1)
-                else if(op==2)
-                else
-
+                do
+                {
+                    cout<<"Escolha uma opcao de identificacao:"<<endl;
+                    cout<<"1 - Pessoal"<<endl;
+                    cout<<"2 - Comercial"<<endl;
+                    cin>>op;
+                    
+                    if(op==1)
+                        procura_dados("Insira uma opção de procura.", agp, op);
+                    else if(op==2)
+                        procura_dados("Insira uma opção de procura.", agc, op);
+                } while (op < 1 || op > 2);
+                    
             break;
 
             case 4:
