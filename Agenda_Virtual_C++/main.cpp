@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstdio>
+#include <locale.h>
 #include "windows.h"
 #include <cmath>
 #include "Agenda.hpp"
@@ -32,9 +33,9 @@ int menu()
 {
     int op;
     do {
-        cout<<"1. inserir um novo item na agenda (sempre no final)"<<endl;
-        cout<<"2. remover um item da agenda (pelo ID ou nome)"<<endl;
-        cout<<"3. pesquisar um item na agenda (por ID ou nome)"<<endl;
+        cout<<"1. inserir um novo item na agenda"<<endl;
+        cout<<"2. remover um item da agenda"<<endl;
+        cout<<"3. pesquisar um item na agenda"<<endl;
         cout<<"4. ordenar a agenda por nome"<<endl;
         cout<<"5. mostrar todos os itens "<<endl;
         cout<<"6. encerrar o programa"<<endl;
@@ -60,19 +61,40 @@ void registra_dados_comerciais(const char *frase, Comercial &dados)
 }
 
 template <typename T, int MAX>
-void procura_dados(const char *frase, const Agenda<T,MAX> &ag)
+void procura_dados_pessoal(const char *frase, const Agenda<T,MAX> &ag)
+{
+    string p;
+
+    cout<<frase<<endl;
+    cin>>p;
+    fflush(stdin);
+    for (int i=0; i<MAX; i++)
+    {
+        if(ag.itens[i].ID == p || ag.itens[i].nome == p)
+            cout<<ag.itens[i].ID<<" - "<<ag.itens[i].nome<<" - "<<ag.itens[i].CPF<<" - "<<ag.itens[i].celular;
+    }
+
+
+}
+
+template <typename T, int MAX>
+void procura_dados_comercial(const char *frase, const Agenda<T,MAX> &ag)
 {
     string p;
     cout<<frase<<endl;
     cin>>p;
-
-    for (int i=0; i<MAX; i++){
-        if (ag.itens[i].ID);
+    for (int i=0; i<MAX; i++)
+    {
+        if(ag.itens[i].ID == p || ag.itens[i].nome == p || ag.itens[i].CNPJ == p || ag.itens[i].telefone == p)
+            cout<<ag.itens[i].ID<<" - "<<ag.itens[i].nome<<" - "<<ag.itens[i].CNPJ<<" - "<<ag.itens[i].telefone;
     }
 }
 
+
+
 int main()
 {
+    setlocale(LC_ALL,"Portuguese");
     Agenda<Pessoal,100> agp;
     Agenda<Comercial,100> agc;
     Pessoal pessoa;
@@ -110,13 +132,14 @@ int main()
                     cout<<"1 - Pessoal"<<endl;
                     cout<<"2 - Comercial"<<endl;
                     cin>>op;
-                    
+                    fflush(stdin);
+
                     if(op==1)
-                        procura_dados("Insira uma opção de procura.", agp, op);
-                    else if(op==2)
-                        procura_dados("Insira uma opção de procura.", agc, op);
+                        procura_dados_pessoal("Escreva o que você deseja buscar.", agp);
+                    if(op==2)
+                        procura_dados_comercial("Escreva o que você deseja buscar.", agc);
                 } while (op < 1 || op > 2);
-                    
+
             break;
 
             case 4:
