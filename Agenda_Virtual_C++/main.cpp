@@ -3,72 +3,29 @@
 #include <cstdio>
 #include "windows.h"
 #include <cmath>
+#include "Agenda.hpp"
+
 
 using namespace std;
 
-struct Pessoal
+ostream& operator<<(ostream &out, const Pessoal &p)
 {
-    string ID;
-    string CPF;
-    string nome;
-    string celular;
-};
+    out<<p.ID<<endl;
+    out<<p.nome<<endl;
+    out<<p.CPF<<endl;
+    out<<p.celular<<endl;
 
-struct Comercial
-{
-    string ID;
-    string CNPJ;
-    string nome;
-    string telefone;
-};
-
-template <typename TIPO, int MAX>
-struct Agenda 
-{
-    TIPO itens[MAX];
-    int quantidade;
-};
-
-///Codigo que converte um objeto string e retorna um long long int (porque botei o cpf, celular... em forma de string)
-long long int convercao(string objeto)
-{
-    int length = objeto.length();
-    int *numeroPtr = new int[length];
-    int k = 0;
-    
-    for (int i=0; i<length; i++){
-        if (isdigit(objeto[i])){
-            numeroPtr[k] = (objeto[i] - '0');
-            k++;
-        }
-    }
-
-    long long int numero = 0;
-    for (int i=0; i<k; i++){
-        numero += numeroPtr[i]*(pow(10, k - 1 - i));
-    }
-
-    return numero;
-}
-///Codigo que converte um objeto string e retorna um long long int
-
-template <typename TIPO, int MAX>
-bool inicializa_agenda(Agenda <TIPO,MAX> &ag) 
-{
-    ag.quantidade = 0;
-    return true;
+    return out;
 }
 
-template <typename TIPO, int MAX>
-bool insere(Agenda <TIPO,MAX> &ag, TIPO dado)
+ostream& operator<<(ostream &out, const Comercial &p)
 {
-    //ag.itens[posicao] = dado;
-}
+    out<<p.ID<<endl;
+    out<<p.nome<<endl;
+    out<<p.CNPJ<<endl;
+    out<<p.telefone<<endl;
 
-template <typename TIPO, int MAX>
-bool remova(Agenda <TIPO,MAX> &ag, TIPO dado)
-{
-
+    return out;
 }
 
 int menu()
@@ -90,20 +47,72 @@ int menu()
     return op;
 }
 
+void registra_dados_pessoais(const char *frase, Pessoal &dados)
+{
+    cout<<frase<<endl;
+    cin>>dados.ID>>dados.nome>>dados.CPF>>dados.celular;
+}
+
+void registra_dados_comerciais(const char *frase, Comercial &dados)
+{
+    cout<<frase<<endl;
+    cin>>dados.ID>>dados.nome>>dados.CNPJ>>dados.telefone;
+}
+
+template <typename T, int MAX>
+void procura_dados(const char *frase, const Agenda<T,MAX> &ag)
+{
+    string p;
+    cout<<frase<<endl;
+    cin>>p;
+
+    for (int i=0; i<MAX; i++){
+        if (ag.itens[i].ID);
+    }
+}
+
 int main()
 {
+    Agenda<Pessoal,100> agp;
+    Agenda<Comercial,100> agc;
+    Pessoal pessoa;
+    Comercial comercio;
+
     int op;
     do {
         op = menu();
 
         switch (op){
             case 1:
+                int opcao;
+                cout<<"1 - Pessoal"<<endl;
+                cout<<"2 - Comercial"<<endl;
+                cin>>opcao;
+
+                if (opcao == 1){
+                    registra_dados_pessoais("Insira seu ID, nome, CPF e numero de celular respectivamente.", pessoa);
+                    insere(agp, pessoa);
+                }
+                else{
+                    registra_dados_comerciais("Insira seu ID, nome, CNPJ e numero de telefone respectivamente.", comercio);
+                    insere(agc, comercio);
+                }
             break;
 
             case 2:
             break;
 
             case 3:
+                int op;
+                cout<<"Escolha uma opcao de identificacao:"<<endl;
+                cout<<"1 - Pessoal"<<endl;
+                cout<<"2 - Comercial"<<endl;
+                cin>>op;
+                
+                if(op==1)
+                else if(op==2)
+                else
+
             break;
 
             case 4:
