@@ -72,6 +72,18 @@ struct Agenda
     int quantidade;
 };
 
+/*template <typename TIPO, int MAX>
+bool operator=(Agenda<TIPO,MAX> &ag1, const Agenda<TIPO,MAX> &ag2)
+{
+    if (ag1.quantidade < ag2.quantidade)
+        return false;
+
+    for (int i=0; i<ag2.quantiade; i++)
+        ag1.itens[i] = ag2.itens[i];
+
+    return true;
+}*/
+
 template <typename TIPO, int MAX>
 bool inicializa_agenda(Agenda <TIPO,MAX> &ag)
 {
