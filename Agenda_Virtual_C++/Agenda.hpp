@@ -13,6 +13,16 @@ struct Pessoal
     long long int  celular;
 };
 
+bool operator<(const Pessoal &p1, const Pessoal &p2)
+{
+    return p1.nome < p2.nome;
+}
+
+bool operator>(const Pessoal &p1, const Pessoal &p2)
+{
+    return p1.nome > p2.nome;
+}
+
 bool operator==(const Pessoal &p1, const Pessoal &p2)
 {
     if (p1.ID != p2.ID || p1.CPF != p2.CPF || p1.nome != p2.nome || p1.celular != p2.celular)
@@ -32,6 +42,16 @@ struct Comercial
     string nome;
     long long int  telefone;
 };
+
+bool operator<(const Comercial &c1, const Comercial &c2)
+{
+    return c1.nome < c2.nome;
+}
+
+bool operator>(const Comercial &c1, const Comercial &c2)
+{
+    return c1.nome > c2.nome;
+}
 
 bool operator==(const Comercial &p1, const Comercial &p2)
 {
