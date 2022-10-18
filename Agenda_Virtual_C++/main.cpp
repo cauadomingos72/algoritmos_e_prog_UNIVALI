@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstdio>
+#include<bits/stdc++.h>
 #include "windows.h"
 #include "Agenda.hpp"
 
@@ -148,15 +149,15 @@ template <typename TIPO>
 void bubblesort(Agenda<TIPO,TAM> &ag)
 {
     int i, j, cond = 1;
-    string temp;
+    TIPO temp;
 
     for (i=TAM-1; (i >= 1) && (cond == 1); i--) {
         cond = 0;
         for (j=0; j < i ;j++) {
-            if (ag.itens[j+1].nome < ag.itens[j].nome) {
-                temp = ag.itens[j].nome;
-                ag.itens[j].nome = ag.itens[j+1].nome;
-                ag.itens[j+1].nome = temp;
+            if (ag.itens[j+1] < ag.itens[j]) {
+                temp = ag.itens[j];
+                ag.itens[j] = ag.itens[j+1];
+                ag.itens[j+1] = temp;
                 cond = 1;
             }
         }
