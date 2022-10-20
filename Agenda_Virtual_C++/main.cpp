@@ -35,6 +35,7 @@ int menu() ///Função de exibição e seleção de opções.
     int op;
     do
     {
+        system("cls");
         cout<<"1. inserir um novo item na agenda"<<endl;
         cout<<"2. remover um item da agenda (pelo ID)"<<endl;
         cout<<"3. pesquisar um item na agenda (por ID)"<<endl;
