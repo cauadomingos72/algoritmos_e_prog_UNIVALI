@@ -179,6 +179,7 @@ void printItens(Agenda<TIPO,TAM> &ag) ///Função que imprime, de forma ordenada
     for (int i=0; i<ag.quantidade; i++){
         cout<<ag.itens[i]<<endl;
     }
+    system("pause");
 }
 
 template <typename TIPO>
@@ -187,6 +188,7 @@ void printItens2(Agenda<TIPO,TAM> &ag) ///Função que imprime os dados de uma a
     for (int i=0; i<ag.quantidade; i++){
         cout<<ag.itens[i]<<endl;
     }
+    system("pause");
 }
 
 int main()
