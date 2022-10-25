@@ -21,7 +21,7 @@ void leitura (int &div1, int &div2)
 void fim (int &op)
 {
   cout<<"Deseja calcular novamente?"<<endl;
-  cout<<"1 - SIM         2 - NÃO"<<endl;
+  cout<<"1 - SIM         0 - NÃO"<<endl;
   cin>>op;
   system("clear");
 }
