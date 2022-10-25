@@ -40,7 +40,7 @@ int main()
   do
   {
     leitura(div1,div2);
-    cout<<"O MMD entre "<<div1<<" e "<<div2<<" é: "<<mdc(div1,div2)<<endl;
+    cout<<"O MDC entre "<<div1<<" e "<<div2<<" é: "<<mdc(div1,div2)<<endl;
     cout<<endl;
     fim(op); 
   } while (op!=0);
