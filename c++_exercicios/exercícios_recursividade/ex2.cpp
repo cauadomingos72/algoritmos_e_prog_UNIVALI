@@ -11,6 +11,7 @@ using namespace std;
 void leitura (int &div1, int &div2)
 {
   cout<<"Digite dois valores para o cálculo do MDC:"<<endl;
+  fflush(stdin);
   cin>>div1>>div2;
   system("clear");
 }
