@@ -23,6 +23,7 @@ void fim (int &op)
 {
   cout<<"Deseja calcular novamente?"<<endl;
   cout<<"1 - SIM         0 - NÃO"<<endl;
+  fflush(stdin);
   cin>>op;
   system("clear");
 }
