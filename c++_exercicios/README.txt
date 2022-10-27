@@ -1,1 +1,1 @@
-All the codes on this folder is based on Linux
+All the codes in this folder is based on Linux
