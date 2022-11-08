@@ -11,7 +11,7 @@ port (i_A : in std_logic_vector (3 downto 0);
 end fullsubtractor;
 
 architecture design of fullsubtractor is
-component somador
+component subtractor
 port ( i_A : in std_logic;
 	   i_B : in std_logic;
        i_WIN : in std_logic;
@@ -22,8 +22,8 @@ end component;
 signal w_wo0, w_wo1, w_wo2 : std_logic;
 
 begin
-FS0 : somador port map(i_A (0), i_B (0), i_WIN, w_wo0, o_S (0));
-FS1 : somador port map(i_A (1), i_B (1), w_wo0, w_wo1, o_S (1));
-FS2 : somador port map(i_A (2), i_B (2), w_wo1, w_wo2, o_S (2));
-FS3 : somador port map(i_A (3), i_B (3), w_wo2, o_WOUT, o_S (3));
+FS0 : subtractor port map(i_A (0), i_B (0), i_WIN, w_wo0, o_S (0));
+FS1 : subtractor port map(i_A (1), i_B (1), w_wo0, w_wo1, o_S (1));
+FS2 : subtractor port map(i_A (2), i_B (2), w_wo1, w_wo2, o_S (2));
+FS3 : subtractor port map(i_A (3), i_B (3), w_wo2, o_WOUT, o_S (3));
 end design;
