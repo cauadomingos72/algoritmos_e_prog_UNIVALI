@@ -1,9 +1,9 @@
-library ieee;
-use ieee.std_logic_1164;
+library IEEE;
+use IEEE.std_logic_1164.all;
 
 entity band is
-port (i_A : in std_logic_vector (3 downto 0);
-		i_B : in std_logic_vector (3 downto 0);
+port (i_A : in std_logic_vector(3 downto 0);
+		i_B : in std_logic_vector(3 downto 0);
 		o_S : out std_logic_vector(3 downto 0));
 end band;
 
@@ -20,4 +20,5 @@ begin
 		o_S(3)<=(i_A(3) and i_B(3));
 	end process;
 end comp;
+		
 		
