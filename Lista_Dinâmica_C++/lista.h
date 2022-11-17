@@ -2,26 +2,37 @@
 
 using namespace std;
 
-//estrutura do produto
-struct Produto
+struct Produto 
 {
- int Codigo;
- string Nome;
- float Preco;
- Produto *proximo;
+  int codigo;
+  string nome;
+  float preco;
+  Produto *proximo;
 };
 
 //estrutura da lista
 struct ListaE
 {
- Produto * inicio;
+ Produto *inicio;
 };
 
 //inicializa lista
-bool inicializa_lista (TListaE &lista)
+void inicializa_lista (ListaE &lista)
 {
  lista.inicio = NULL;
 }
 
 //Protótipo da inserção
-bool insere_elemento_lista(TListaE &lista, Produto prod);
+void insere_elemento_lista(ListaE &lista, Produto prod)
+{
+  lista.inicio->codigo = prod.codigo;
+  lista.inicio->nome = prod.nome;
+  lista.inicio->preco = prod.preco;
+  lista.inicio->proximo = lista.inicio;
+}
+
+/*Produto* acha_ultimo_elemento(Produto *p)
+{
+  if (p->proximo == NULL)
+    return p;
+}*/
