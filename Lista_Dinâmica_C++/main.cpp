@@ -1,7 +1,8 @@
+///Integrantes: Cauã Domingos, Paulo Hermans e Vinicius Ribeiro.
 #include <iostream>
 #include <fstream>
 #include <string.h>
-#include <stdlib.h>
+#include <windows.h>
 #include <stdio.h>
 #include <locale.h>
 #include "lista.h"
@@ -21,10 +22,9 @@ void menu (int &op)
 
 void extrai_dados(Produto &p)
 {
-  cout<<"Inira os dados do produto"<<endl;
+  cout<<"Insira os dados do produto"<<endl;
   cout<<"Nome: "<<endl;
   fflush(stdin);
-  cin.ignore();
   getline(cin, p.nome);
   cout<<endl;
   do {
@@ -34,36 +34,74 @@ void extrai_dados(Produto &p)
   cout<<endl;
   cout<<"Preço:"<<endl;
   cin>>p.preco;
-  /*system("clear");*/
+  system("cls");
+}
+
+
+void exibir_dados(Produto *p)
+{
+  if(prodvazio(p))
+    cout<<"Nenhum item adicionado"<<endl;
+  else {
+    while (p != NULL)
+    {
+      cout<<p->nome<<endl;
+      cout<<p->codigo<<endl;
+      cout<<p->preco<<endl;
+      p = p->proximo;
+    }
+  }
 }
 
 int main() {
   setlocale(LC_ALL, "Portuguese");
   ListaE lista;
+  ofstream listasalva;
+  listasalva.open("data.txt");
   inicializa_lista(lista);
-  Produto item;
-  int op;
+  Produto *item = NULL;
+  Produto *itemF = NULL;
+  Produto val;
+  int op=0;
 
-  menu(op);
+  do{
+    system("cls");
+    menu(op);
 
-  switch (op)
-  {
-    case 1:
-      extrai_dados(item);
-      insere_elemento_lista(lista, item);      
-    break;
-    
-    case 2:
-    break;
-  
-    case 3:
-    break;
+    switch (op)
+    {
+      case 1:
+        extrai_dados(val);
+        insere_elemento_lista(item, itemF, val);
+        system("pause");
+      break;
 
-    case 4:
-    break;
+      case 2:
+      remover_lista(item, itemF);
+      system("cls");
+      break;
 
-    default:
-    break;
-  }
+      case 3:
+      consulta_lista(item, itemF);
+      system("pause");
+      break;
+
+      case 4:
+      exibir_dados(item);
+      system("pause");
+      break;
+
+      default:
+      break;
+
+    }
+  } while (op!=5);
+  listasalva << item->codigo <<endl;
+  listasalva << item->nome<<endl;
+  listasalva << item->preco<<endl;
+  listasalva << itemF->codigo<<endl;
+  listasalva << itemF->nome<<endl;
+  listasalva << itemF->preco<<endl;
+  listasalva.close();
   return 0;
 }
