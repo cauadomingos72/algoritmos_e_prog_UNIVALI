@@ -1,6 +1,5 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
-use work.all;
 
 entity fullsomador is
 port (	i_A : in std_logic_vector (7 downto 0);
@@ -35,7 +34,7 @@ FS5 : somador port map(i_A (5), i_B (5), w_co5, w_co6, o_S(5));
 	
 FS6 : somador port map(i_A (6), i_B (6), w_co6, w_co7, o_S(6));
 	
-FS7 : somador port map(i_A (7), i_B (7), w_co7, w_co8, o_S(7));
+FS7 : somador port map(i_A (7), i_B (7), w_co7, o_COUT, o_S(7));
 
 	
 end design;
