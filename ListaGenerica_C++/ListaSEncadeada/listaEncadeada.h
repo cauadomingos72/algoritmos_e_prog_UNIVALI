@@ -145,21 +145,24 @@ bool removePosicaoListaEnc(listaEnc<Tipo> &lEnc, int posicao){
     }
 }
 
-/*
-
 template <typename Tipo, int MAX>
-void bubblesort(listaGen<Tipo, MAX> &lGen){
-    Tipo temp;
-    int cond=1;
-    for(int i=lGen.tamanho; i>=1 && cond==1; i--){
-        cond = 0;
-        for(int j=0; j<i; j++){
-            if(lGen.elementoGen[j+1].dado < lGen.elementoGen[j].dado){
-                temp = lGen.elementoGen[j].dado;
-                lGen.elementoGen[j].dado = lGen.elementoGen[j+1].dado;
-                lGen.elementoGen[j+1].dado = temp;
-                cond = 1;
+void bubblesort(listaEnc<Tipo> &lEnc){
+    if(lEnc.inicio != NULL){
+        Tipo temp;
+        int cond=1;
+        while(cond==1){
+            cond = 0;
+            elementoEnc <Tipo> *nav = lEnc.inicio;
+            elementoEnc <Tipo> *aux = nav->proximo;
+            while(aux!=NULL){
+                elementoEnc <Tipo> *aux = nav->proximo;
+                if(aux->dado < nav->dado){
+                    temp = aux->dado;
+                    aux->dado = nav->dado;
+                    nav->dado = temp;
+                    cond = 1;
+                }
             }
         }
     }
-}*/
+}
