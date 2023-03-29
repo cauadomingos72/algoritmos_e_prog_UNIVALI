@@ -109,7 +109,7 @@ bool removeInicioListaDEnc(listaDEnc<Tipo> &lDEnc){
 
 template <typename Tipo>
 bool inserePosicaoListaDEncCI(listaDEnc<Tipo> &lDEnc, Tipo dado, int posicao){
-    if(posicao > lDEnc.total){
+    if(posicao > lDEnc.total || lDEnc.total == 0){
         return false;
     }else{
         elementoEnc<Tipo> *novo = novoElemento(dado);
@@ -127,7 +127,7 @@ bool inserePosicaoListaDEncCI(listaDEnc<Tipo> &lDEnc, Tipo dado, int posicao){
         }
         if(posicao<=lDEnc.total/2){
             elementoEnc <Tipo> *nav = lEnc.inicio;
-            for(int i=1; i<posicao; i++){
+            for(int i=0; i<posicao; i++){
                 nav = nav->proximo;
             }
             novo->proximo = nav->proximo;
@@ -152,20 +152,103 @@ bool inserePosicaoListaDEncCI(listaDEnc<Tipo> &lDEnc, Tipo dado, int posicao){
 }
 
 template <typename Tipo>
-bool removePosicaoListaDEnc(listaDEnc<Tipo> &lDEnc, int posicao){
-
-    elementoEnc <Tipo> *nav = lEnc.inicio;
-    if(lEnc.inicio != NULL){
-        elementoEnc <Tipo> *aux = lEnc.inicio;
-        for(int i=1; i<posicao && nav!=NULL; i++){
-            aux = nav;
-            nav = nav->proximo;
-        }
-        aux->proximo = nav->proximo;
-        delete nav;
-        return true;
-    }else{
+bool removePosicaoListaDEncCI(listaDEnc<Tipo> &lDEnc, int posicao){
+    if(posicao >= lDEnc.total || lDEnc.total == 0){
         return false;
+    }else{
+        if(posicao == 0){
+            elementoDEnc <Tipo> *aux = lDEnc.inicio;
+            lDEnc.inicio = aux->proximo;
+            lDEnc.inicio->anterior = NULL;
+            delete aux;
+        }
+        if(posicao == lDEnc.total-1){
+            elementoDEnc <Tipo> *aux = lDEnc.fim;
+            lDEnc.fim = aux->anterior;
+            lDEnc.fim->proximo = NULL;
+            delete aux;
+        }
+        if(posicao<lDEnc.total/2){
+            elementoEnc <Tipo> *nav = lEnc.inicio;
+            for(int i=0; i<posicao; i++){
+                nav = nav->proximo;
+            }
+            elementoEnc <Tipo> *aux = nav->anterior
+            aux->proximo = nav->proximo;
+            aux = nav->proximo;
+            aux->anterior = nav->anterior
+            delete nav;
+        }else{
+            elementoEnc <Tipo> *nav = lEnc.fim;
+            for(int i=lDEnc.total-1; i>posicao; i--){
+                nav = nav->anterior;
+            }
+            elementoEnc <Tipo> *aux = nav->anterior
+            aux->proximo = nav->proximo;
+            aux = nav->proximo;
+            aux->anterior = nav->anterior
+            delete nav;
+        }
+        lDEnc.total--;
+        return true;
     }
+}
 
+template <typename Tipo>
+bool inserePosicaoListaDEncSI(listaDEnc<Tipo> &lDEnc, Tipo dado, int posicao){
+    if(lDEnc.inicio == NULL){
+        return false;
+    }else{
+        elementoEnc<Tipo> *novo = novoElemento(dado);
+        if(posicao == 0){
+            elementoDEnc <Tipo> *aux = lDEnc.inicio;
+            lDEnc.inicio = novo;
+            aux->anterior = novo;
+            novo->proximo = aux;
+        }else{
+            elementoEnc <Tipo> *nav = lEnc.inicio;
+            for(int i=0; i<posicao; i++){
+                if(nav!=NULL){
+                    nav = nav->proximo;
+                }else{
+                    return false;
+                }
+            }
+            novo->proximo = nav->proximo;
+            novo->anterior = nav;
+            nav->proximo = novo;
+            nav = novo->proximo;
+            nav->anterior = novo;
+        }
+        return true;
+    }
+}
+
+template <typename Tipo>
+bool removePosicaoListaDEncSI(listaDEnc<Tipo> &lDEnc, int posicao){
+    if(posicao >= lDEnc.total || lDEnc.total == 0){
+        return false;
+    }else{
+        if(posicao == 0){
+            elementoDEnc <Tipo> *aux = lDEnc.inicio;
+            lDEnc.inicio = aux->proximo;
+            lDEnc.inicio->anterior = NULL;
+            delete aux;
+        }else{
+            elementoEnc <Tipo> *nav = lEnc.inicio;
+            for(int i=0; i<posicao; i++){
+                if(nav!=NULL){
+                    nav = nav->proximo;
+                }else{
+                    return false;
+                }
+            }
+            elementoEnc <Tipo> *aux = nav->anterior
+            aux->proximo = nav->proximo;
+            aux = nav->proximo;
+            aux->anterior = nav->anterior
+            delete nav;
+        }
+        return true;
+    }
 }
