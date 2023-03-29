@@ -25,16 +25,17 @@ bool iniciaListaEnc(listaEnc<Tipo> &lEnc){
 
 template <typename Tipo>
 int retornaTamanhoListaEnc(listaEnc<Tipo> &lEnc){
-    int i=0;
     if(lEnc.inicio != NULL){
-        i++;
+        int i=1;
         elementoEnc <Tipo> *nav = lEnc.inicio;
-        while(nav->proximo!=NULL){
+        while(nav!=NULL){
             nav = nav->proximo;
             i++;
         }
+        return i;
+    }else{
+        return 0;
     }
-    return i;
 }
 
 template <typename Tipo>
@@ -110,58 +111,65 @@ bool removeInicioListaEnc(listaEnc<Tipo> &lEnc){
 template <typename Tipo>
 bool inserePosicaoListaEnc(listaEnc<Tipo> &lEnc, Tipo dado, int posicao){
     elementoEnc<Tipo> *novo = novoElemento(dado);
-    if(posicao == 0){
+    if(posicao == 1){
         novo->proximo = lEnc.inicio;
         lEnc.inicio = novo;
         return true;
     }else{
         elementoEnc <Tipo> *nav = lEnc.inicio;
-        for(int i=1; i<posicao && nav!=NULL; i++){
+        for(int i=2; i<posicao && nav!=NULL; i++){
             nav = nav->proximo;
         }
         if(nav != NULL){
             novo->proximo = nav->proximo;
             nav->proximo = novo;
+            return true;
         }else{
             return false;
         }
     }
+    return false;
 }
 
 template <typename Tipo>
 bool removePosicaoListaEnc(listaEnc<Tipo> &lEnc, int posicao){
-    elementoEnc <Tipo> *nav = lEnc.inicio;
-    if(lEnc.inicio != NULL){
+    if(lEnc.inicio != NULL && posicao > 0){
         elementoEnc <Tipo> *aux = lEnc.inicio;
-        for(int i=1; i<posicao && nav!=NULL; i++){
-            aux = nav;
-            nav = nav->proximo;
+        elementoEnc <Tipo> *nav = aux->proximo;
+        if(posicao == 1){
+            lEnc.inicio = nav;
+            delete aux;
+            return true;
+        }else{
+            for(int i=2; i<posicao && nav!=NULL; i++){
+                aux = nav;
+                nav = nav->proximo;
+            }
+            aux->proximo = nav->proximo;
+            delete nav;
+            return true;
         }
-        aux->proximo = nav->proximo;
-        delete nav;
-        return true;
     }else{
         return false;
     }
 }
 
-template <typename Tipo, int MAX>
+template <typename Tipo>
 void bubblesort(listaEnc<Tipo> &lEnc){
     if(lEnc.inicio != NULL){
         Tipo temp;
-        int cond=1;
-        while(cond==1){
-            cond = 0;
-            elementoEnc <Tipo> *nav = lEnc.inicio;
-            elementoEnc <Tipo> *aux = nav->proximo;
-            while(aux!=NULL){
-                elementoEnc <Tipo> *aux = nav->proximo;
-                if(aux->dado < nav->dado){
-                    temp = aux->dado;
-                    aux->dado = nav->dado;
-                    nav->dado = temp;
-                    cond = 1;
-                }
+        elementoEnc <Tipo> *nav = lEnc.inicio;
+        elementoEnc <Tipo> *aux = nav->proximo;
+        while(aux!=NULL){
+            if(aux->dado < nav->dado){
+                temp = aux->dado;
+                aux->dado = nav->dado;
+                nav->dado = temp;
+                nav = lEnc.inicio;
+                aux = nav->proximo;
+            }else{
+                aux = aux->proximo;
+                nav = nav->proximo;
             }
         }
     }
