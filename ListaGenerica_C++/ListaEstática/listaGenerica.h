@@ -115,10 +115,10 @@ void bubblesort(listaGen<Tipo, MAX> &lGen){
     for(int i=lGen.tamanho; i>=1 && cond==1; i--){
         cond = 0;
         for(int j=0; j<i; j++){
-            if(lGen.elementoGen[j+1].dado < lGen.elementoGen[j].dado){
-                temp = lGen.elementoGen[j].dado;
-                lGen.elementoGen[j].dado = lGen.elementoGen[j+1].dado;
-                lGen.elementoGen[j+1].dado = temp;
+            if(lGen.elementos[j+1].dado < lGen.elementos[j].dado){
+                temp = lGen.elementos[j].dado;
+                lGen.elementos[j].dado = lGen.elementos[j+1].dado;
+                lGen.elementos[j+1].dado = temp;
                 cond = 1;
             }
         }
