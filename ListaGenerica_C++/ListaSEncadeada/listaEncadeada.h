@@ -1,4 +1,4 @@
-// Alunos: Cauã Domingos, Pedro  Kons, Paulo Martino
+// Alunos: Cauã Domingos, Pedro Kons, Paulo Martino
 #include <iostream>
 #include <locale.h>
 #include <stdlib.h>
@@ -7,68 +7,67 @@
 using namespace std;
 
 template <typename Tipo>
-struct elementoEnc{     //Cria uma estrutura onde estara armazenado um dado e um apontamento para um próximo elemento que possa estar na lista
-    Tipo dado;      //Onde será armazenado um dado genérico
-    elementoEnc <Tipo> *proximo;    //Apoontamento para um próximo elemento da lista   
+struct elementoEnc{  
+    Tipo dado; 
+    elementoEnc <Tipo> *proximo;    
 };
 
 template <typename Tipo>
-struct listaEnc{    //Atribui variáveis que definem o início da lista
-    elementoEnc <Tipo> *inicio; //Cria um ponteiro onde será armazenado o endereço do começo da lista
+struct listaEnc{ 
+    elementoEnc <Tipo> *inicio; 
 };
 
 template <typename Tipo>
-bool iniciaListaEnc(listaEnc<Tipo> &lEnc){  //Inicializa a lista, atribuindo um valor nulo ao inicio dela (visto que não deve possuir nenhum lixo de memória na mesma)
-    lEnc.inicio = NULL; //Atribui o endereço do inicio como nulo
-    return true;    //Retorna que foi executada a função
+bool iniciaListaEnc(listaEnc<Tipo> &lEnc){  
+    lEnc.inicio = NULL; 
+    return true;   
 }
 
 template <typename Tipo>
-int retornaTamanhoListaEnc(listaEnc<Tipo> &lEnc){   //Retorna o tamanho total da lista
-    if(lEnc.inicio != NULL){    //Verifica se o inicio está apontando para algum endereço não nulo
+int retornaTamanhoListaEnc(listaEnc<Tipo> &lEnc){   
+    if(lEnc.inicio != NULL){  
         int i=1;
-        elementoEnc <Tipo> *nav = lEnc.inicio; //Cria um ponteiro para ajudar a navegar pela lista
-        while(nav!=NULL){   //Faz a verificação até que o endereço atribuido no nav seja nulo, indicando que é o fim da lista
-            nav = nav->proximo; //Caso o endereço do nav não for nulo, ele passa para um próximo elemento da lista
-            i++;    //Adiciona 1 ao contador do tamanho da lista
+        elementoEnc <Tipo> *nav = lEnc.inicio;
+        while(nav!=NULL){
+            nav = nav->proximo;
+            i++;    
         }
-        return i;   //Retorna o tamanho total da lista
+        return i;   
     }else{
-        return 0;   //É visto através do "if" que o endereço é nulo, sendo assim a lista está vazia
+        return 0;   
     }
 }
 
 template <typename Tipo>
-elementoEnc<Tipo> *novoElemento(Tipo dado){     //Criação de um novo elemento que será inserido na lista
-    elementoEnc <Tipo> *novo = new elementoEnc<Tipo>;      //Atribui um endereço a esse ponteiro
-    novo->dado = dado;      //Inseri o dado dentro do novo elemento
-    novo->proximo = NULL;   //Atribui um valor de nulo ao próximo endereço deste elemento
+elementoEnc<Tipo> *novoElemento(Tipo dado){     
+    elementoEnc <Tipo> *novo = new elementoEnc<Tipo>;      
+    novo->dado = dado; 
+    novo->proximo = NULL;
 };
 
 template <typename Tipo>
-bool insereFimListaEnc(listaEnc<Tipo> &lEnc, Tipo dado){    //Função que irá inserir um novo elemento no fim da lista
-    elementoEnc <Tipo> *nav = lEnc.inicio;  //Cria um ponteiro para ajudar a navegar pela lista
-    if(lEnc.inicio != NULL){    //Verifica se o inicio está apontando para algum endereço não nulo
-        while(nav->proximo!=NULL){    //Um laço de repetição que irá percorrer até o fim da lista, se o próximo do endereço do "nav" for nulo, isso indica que "nav" é o último elemento da lista
-            nav = nav->proximo;    //Caso o próximo elemento atribuido no "nav" não for nulo, ele passa para o próximo elemento desse elemento
+bool insereFimListaEnc(listaEnc<Tipo> &lEnc, Tipo dado){
+    elementoEnc <Tipo> *nav = lEnc.inicio;
+    if(lEnc.inicio != NULL){    
+        while(nav->proximo!=NULL){    
+            nav = nav->proximo; 
         }
-        elementoEnc <Tipo> *novo = novoElemento(dado);   //Cria um ponteiro que está armazenando o elemento que será inserido
-        novo->proximo = nav->proximo;   //O endereço próximo do novo elemento receberá o endereço do próximo elemento (que é nulo)  
-        nav->proximo = novo;    //O endereço do proxímo elemento do nav (que se encontra nulo), receberá o endereço do novo elemento
-        return true;
-    }else{  //Caso o endereço seja nulo, ele estará inserindo um primeiro elemento a essa lista
-        elementoEnc<Tipo> *novo = novoElemento(dado);   //Cria um ponteiro que está armazenando o elemento que será inserido
-        novo->proximo = NULL;   //Atribui o valor do proxímo elemento como nulo, indicando o fim da lista
-        lEnc.inicio = novo;     //O endereço deste novo elemento será apontado pelo início da lista
-        return true;    //Retorna que foi executada a função
+        elementoEnc <Tipo> *novo = novoElemento(dado);
+        novo->proximo = nav->proximo; 
+        nav->proximo = novo;
+    }else{ 
+        elementoEnc<Tipo> *novo = novoElemento(dado);
+        novo->proximo = NULL;   
+        lEnc.inicio = novo;    
+        return true;    
     }
 }
 
 template <typename Tipo>
-bool removeFimListaEnc(listaEnc<Tipo> &lEnc){   //Função que remove o elemento final de uma lista
+bool removeFimListaEnc(listaEnc<Tipo> &lEnc){  
     if(lEnc.inicio != NULL){    
-        elementoEnc <Tipo> *nav = lEnc.inicio;
-        if(nav->proximo != NULL){
+        elementoEnc <Tipo> *nav = lEnc.inicio;  
+        if(nav->proximo != NULL){    
             elementoEnc <Tipo> *aux = lEnc.inicio;
             nav = nav->proximo;
             while(nav->proximo!=NULL){
@@ -83,8 +82,8 @@ bool removeFimListaEnc(listaEnc<Tipo> &lEnc){   //Função que remove o elemento
             delete nav;
             return true;
         }
-    }else{
-        return false;
+    }else{ 
+        return false;   
     }
 }
 
