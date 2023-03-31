@@ -1,3 +1,4 @@
+//Alunos: Cauã Domingos, Pedro Kons, Paulo Martino
 #include <iostream>
 #include <locale.h>
 #include <stdlib.h>
