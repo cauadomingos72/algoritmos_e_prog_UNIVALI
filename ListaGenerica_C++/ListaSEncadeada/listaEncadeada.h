@@ -24,7 +24,7 @@ bool iniciaListaEnc(listaEnc<Tipo> &lEnc){
 }
 
 template <typename Tipo>
-int retornaTamanhoListaEnc(listaEnc<Tipo> &lEnc){   
+int retornaTamanhoListaEnc(listaEnc<Tipo> &lEnc){   //f(n)
     if(lEnc.inicio != NULL){  
         int i=1;
         elementoEnc <Tipo> *nav = lEnc.inicio;
@@ -46,9 +46,9 @@ elementoEnc<Tipo> *novoElemento(Tipo dado){
 };
 
 template <typename Tipo>
-bool insereFimListaEnc(listaEnc<Tipo> &lEnc, Tipo dado){
-    elementoEnc <Tipo> *nav = lEnc.inicio;
-    if(lEnc.inicio != NULL){    
+bool insereFimListaEnc(listaEnc<Tipo> &lEnc, Tipo dado){ //f(n+2)
+    if(lEnc.inicio != NULL){
+        elementoEnc <Tipo> *nav = lEnc.inicio;
         while(nav->proximo!=NULL){    
             nav = nav->proximo; 
         }
@@ -64,7 +64,7 @@ bool insereFimListaEnc(listaEnc<Tipo> &lEnc, Tipo dado){
 }
 
 template <typename Tipo>
-bool removeFimListaEnc(listaEnc<Tipo> &lEnc){  
+bool removeFimListaEnc(listaEnc<Tipo> &lEnc){  //f(2n+1)
     if(lEnc.inicio != NULL){    
         elementoEnc <Tipo> *nav = lEnc.inicio;  
         if(nav->proximo != NULL){    
@@ -88,7 +88,7 @@ bool removeFimListaEnc(listaEnc<Tipo> &lEnc){
 }
 
 template <typename Tipo>
-bool insereInicioListaEnc(listaEnc<Tipo> &lEnc, Tipo dado){
+bool insereInicioListaEnc(listaEnc<Tipo> &lEnc, Tipo dado){     //f(2)
     elementoEnc<Tipo> *novo = novoElemento(dado);
     novo->proximo = lEnc.inicio;
     lEnc.inicio = novo;
@@ -96,7 +96,7 @@ bool insereInicioListaEnc(listaEnc<Tipo> &lEnc, Tipo dado){
 }
 
 template <typename Tipo>
-bool removeInicioListaEnc(listaEnc<Tipo> &lEnc){
+bool removeInicioListaEnc(listaEnc<Tipo> &lEnc){        //f(2)
     if(lEnc.inicio != NULL){
         elementoEnc <Tipo> *aux = lEnc.inicio;
         lEnc.inicio = aux->proximo;
@@ -108,7 +108,7 @@ bool removeInicioListaEnc(listaEnc<Tipo> &lEnc){
 }
 
 template <typename Tipo>
-bool inserePosicaoListaEnc(listaEnc<Tipo> &lEnc, Tipo dado, int posicao){
+bool inserePosicaoListaEnc(listaEnc<Tipo> &lEnc, Tipo dado, int posicao){   //f(n+3)
     elementoEnc<Tipo> *novo = novoElemento(dado);
     if(posicao == 1){
         novo->proximo = lEnc.inicio;
@@ -131,7 +131,7 @@ bool inserePosicaoListaEnc(listaEnc<Tipo> &lEnc, Tipo dado, int posicao){
 }
 
 template <typename Tipo>
-bool removePosicaoListaEnc(listaEnc<Tipo> &lEnc, int posicao){
+bool removePosicaoListaEnc(listaEnc<Tipo> &lEnc, int posicao){  //f(2n+1)
     if(lEnc.inicio != NULL && posicao > 0){
         elementoEnc <Tipo> *aux = lEnc.inicio;
         elementoEnc <Tipo> *nav = aux->proximo;
@@ -154,7 +154,7 @@ bool removePosicaoListaEnc(listaEnc<Tipo> &lEnc, int posicao){
 }
 
 template <typename Tipo>
-void bubblesortS(listaEnc<Tipo> &lEnc){
+void bubblesortS(listaEnc<Tipo> &lEnc){ //f(n^2)
     if(lEnc.inicio != NULL){
         Tipo temp;
         elementoEnc <Tipo> *nav = lEnc.inicio;
