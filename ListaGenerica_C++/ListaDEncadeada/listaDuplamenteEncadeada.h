@@ -1,6 +1,5 @@
 #include <iostream>
 #include <locale.h>
-#include <windows.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -272,4 +271,73 @@ void bubblesortD(listaDEnc<Tipo> &lDEnc){
             }
         }
     }
+}
+
+///Esta é a ordenação implementada por nós, não achamos o erro para correção.
+/*template <typename Tipo>
+void quicksortD(listaDEnc<Tipo> &lDEnc){
+    elementoDEnc <Tipo> *navi = lDEnc.inicio;
+    elementoDEnc <Tipo> *navf = lDEnc.fim;
+    if (navf!=NULL && navi!=navf && navf!=navi->proximo){
+        Tipo meio = navf->dado;
+        elementoDEnc <Tipo> *i = navf->anterior;
+        for (elementoDEnc <Tipo> *j=navi; j!=navf; j=j->proximo){
+            if (j->dado <= meio){
+                if(i==NULL){
+                    i = navi;
+                }else{
+                    i = i->proximo;
+                }
+                Tipo temp = i->dado;
+                i->dado = j->dado;
+                j->dado = temp;
+            }
+        }
+        if(i==NULL){
+            i = navi;
+        }else{
+            i = i->proximo;
+        }
+        Tipo temp = i->dado;
+        i->dado = navf->dado;
+        navf->dado = temp;
+        lDEnc.inicio = navi;
+        lDEnc.fim = i->anterior;
+        quicksortD(lDEnc);
+        lDEnc.inicio = i->proximo;
+        lDEnc.fim = navf;
+        quicksortD(lDEnc);
+    }
+}*/
+
+///Neste final da biblioteca, está a correção criada pelo "ChatGPT" para o nosso quicksort.
+
+template <typename Tipo>
+elementoDEnc<Tipo>* partitionD(elementoDEnc<Tipo> *esquerda, elementoDEnc<Tipo> *direita){
+    Tipo pivo = direita->dado;
+    elementoDEnc<Tipo> *i = esquerda->anterior;
+
+    for (elementoDEnc<Tipo> *j = esquerda; j != direita; j = j->proximo) {
+        if (j->dado <= pivo) {
+            i = (i == NULL) ? esquerda : i->proximo;
+            std::swap(i->dado, j->dado);
+        }
+    }
+    i = (i == NULL) ? esquerda : i->proximo;
+    std::swap(i->dado, direita->dado);
+    return i;
+}
+
+template <typename Tipo>
+void quicksortD(elementoDEnc<Tipo> *esquerda, elementoDEnc<Tipo> *direita){
+    if (direita != NULL && esquerda != direita && esquerda != direita->proximo) {
+        elementoDEnc<Tipo>* pivo = partitionD(esquerda, direita);
+        quicksortD(esquerda, pivo->anterior);
+        quicksortD(pivo->proximo, direita);
+    }
+}
+
+template <typename Tipo>
+void quicksortD(listaDEnc<Tipo> &lDEnc){
+    quicksortD(lDEnc.inicio, lDEnc.fim);
 }
