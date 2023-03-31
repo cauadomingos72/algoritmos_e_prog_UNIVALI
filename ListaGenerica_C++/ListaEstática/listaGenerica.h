@@ -1,7 +1,7 @@
 #include <iostream>
 #include <locale.h>
-#include <windows.h>
 #include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
@@ -82,7 +82,8 @@ bool removeInicioListaGen(listaGen<Tipo, MAX> &lGen){
 template <typename Tipo, int MAX>
 bool inserePosicaoListaGen(listaGen<Tipo, MAX> &lGen, Tipo dado, int posicao){
     if(lGen.tamanho < MAX && posicao < lGen.tamanho){
-        for(int i=lGen.tamanho; i+1>posicao; i--){
+        posicao--;
+        for(int i=lGen.tamanho-1; i+1>posicao; i--){
             lGen.elementos[i+1] = lGen.elementos[i];
         }
         elementoGen<Tipo> e;
@@ -98,6 +99,7 @@ bool inserePosicaoListaGen(listaGen<Tipo, MAX> &lGen, Tipo dado, int posicao){
 template <typename Tipo, int MAX>
 bool removePosicaoListaGen(listaGen<Tipo, MAX> &lGen, int posicao){
     if(lGen.tamanho > 0 && posicao < lGen.tamanho){
+        posicao--;
         for(int i=posicao; i+1<lGen.tamanho; i++){
             lGen.elementos[i] = lGen.elementos[i+1];
         }
@@ -109,18 +111,49 @@ bool removePosicaoListaGen(listaGen<Tipo, MAX> &lGen, int posicao){
 }
 
 template <typename Tipo, int MAX>
-void bubblesort(listaGen<Tipo, MAX> &lGen){
+void bubblesortG(listaGen<Tipo, MAX> &lGen){
     Tipo temp;
     int cond=1;
     for(int i=lGen.tamanho; i>=1 && cond==1; i--){
         cond = 0;
         for(int j=0; j<i; j++){
-            if(lGen.elementoGen[j+1].dado < lGen.elementoGen[j].dado){
-                temp = lGen.elementoGen[j].dado;
-                lGen.elementoGen[j].dado = lGen.elementoGen[j+1].dado;
-                lGen.elementoGen[j+1].dado = temp;
+            if(lGen.elementos[j+1].dado < lGen.elementos[j].dado){
+                temp = lGen.elementos[j].dado;
+                lGen.elementos[j].dado = lGen.elementos[j+1].dado;
+                lGen.elementos[j+1].dado = temp;
                 cond = 1;
             }
         }
+    }
+}
+
+template <typename Tipo, int MAX>
+void quicksortG(listaGen<Tipo, MAX> &lGen, int inicio, int fim) {
+    int i, j;
+    Tipo meio;
+    i = inicio;
+    j = fim;
+    meio = lGen.elementos[(fim)/2].dado;
+    while(i<=j) {
+        while(lGen.elementos[i].dado<meio && i <fim){
+            i++;
+        }
+        while(lGen.elementos[j].dado>meio && j>inicio){
+            j--;
+        }
+        if (i <= j) {
+            elementoGen<Tipo> aux;
+            aux = lGen.elementos[i];
+            lGen.elementos[i] = lGen.elementos[j];
+            lGen.elementos[j] = aux;
+            i++;
+            j--;
+        }
+    }
+    if (j>0){
+        quicksortG(lGen, inicio, j);
+    }
+    if (i<lGen.tamanho-1){
+        quicksortG(lGen, i, fim);
     }
 }
