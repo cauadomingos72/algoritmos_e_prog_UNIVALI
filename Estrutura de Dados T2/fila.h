@@ -60,4 +60,11 @@ Tipo DeQueue(Fila<Tipo> &F){
     }
 }
 
+template <typename Tipo>
+Tipo Pick(Fila<Tipo> &F){
+    if(F.inicio!=NULL){
+        return F.inicio;
+    }
+}
+
 #endif // FILA_H_INCLUDED
