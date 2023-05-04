@@ -1,3 +1,7 @@
+# Disciplina: Arquitetura e Organização de Processadores
+# Atividade: Avaliação 03 – Programação em Linguagem de Montagem
+# Aluno: Caua Domingos e Taryck Santos
+
 .data #Segmento de Dados
 
 	Msg1: .asciz "\n\n Digite um valor para X: "
