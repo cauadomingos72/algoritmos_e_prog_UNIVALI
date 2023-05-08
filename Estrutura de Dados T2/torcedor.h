@@ -3,19 +3,19 @@
 
 struct Torcedor
 {
-  int nome;
+  int qtd;
   int tempo;
   bool socio;
 };
 
-void addNome(Torcedor a)
+int addQtd(Torcedor a)
 {
-  
+  return a.qtd++;
 }
 
-int contTempo()
+int contTempo(Torcedor a)
 {
-  return 0;
+  return a.tempo++;
 }
 
 bool setSocio(Torcedor a)
