@@ -1,7 +1,42 @@
 #include <iostream>
 #include <windows.h>
+#include "fila.h"
 
 using namespace std;
+
+struct torcedor{
+    bool socio;
+};
+
+struct guiches{
+    int num;
+    int total;
+    Fila<torcedor> gfila;
+    guiches *proximo;
+};
+
+struct gnormal{
+    guiches *primeiroN;
+};
+
+struct gsocios{
+    guiches *primeiroS;
+};
+
+bool iniciaGNormal(gnormal &g){
+    g.primeiroN = NULL;
+}
+
+bool iniciaGSocios(gsocios &g){
+    g.primeiroS = NULL;
+}
+
+bool iniciaGuiches(int num, guiches &g){
+    g.num = num;
+    g.total = 0;
+    iniciaFila(g.gfila);
+    g.proximo = NULL;
+};
 
 void menu(int &GS, int &GN, int &C, int &P, int &T) ///Função de exibição e seleção de opções.
 {
