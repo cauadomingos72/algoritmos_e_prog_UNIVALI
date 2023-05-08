@@ -4,10 +4,6 @@
 
 using namespace std;
 
-struct torcedor{
-    bool socio;
-};
-
 struct guiches{
     int num;
     int total;
