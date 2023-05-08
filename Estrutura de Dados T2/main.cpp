@@ -1,13 +1,14 @@
 #include <iostream>
 #include <windows.h>
 #include "fila.h"
+#include "torcedor.h"
 
 using namespace std;
 
 struct guiches{
     int num;
     int total;
-    Fila<torcedor> gfila;
+    Fila<Torcedor> gfila;
     guiches *proximo;
 };
 
@@ -19,6 +20,14 @@ struct gsocios{
     guiches *primeiroS;
 };
 
+guiches *novoGuiche(int num){
+    guiches *novoG = new guiches;
+    novoG->num = num;
+    novoG->total = 0;
+    iniciaFila(novoG->gfila);
+    novoG->proximo = NULL;
+}
+
 bool iniciaGNormal(gnormal &g){
     g.primeiroN = NULL;
 }
@@ -26,13 +35,6 @@ bool iniciaGNormal(gnormal &g){
 bool iniciaGSocios(gsocios &g){
     g.primeiroS = NULL;
 }
-
-bool iniciaGuiches(int num, guiches &g){
-    g.num = num;
-    g.total = 0;
-    iniciaFila(g.gfila);
-    g.proximo = NULL;
-};
 
 void menu(int &GS, int &GN, int &C, int &P, int &T) ///Função de exibição e seleção de opções.
 {
@@ -53,7 +55,21 @@ void menu(int &GS, int &GN, int &C, int &P, int &T) ///Função de exibição e 
 int main()
 {
     int qtdGuicheSocio, qtdGuicheNormal, qtdCarga, qtdProcura, qtdTempo;
+    gnormal Normal;
+    iniciaGNormal(Normal);
+    gsocios Socios;
+    iniciaGSocios(Socios);
     menu(qtdGuicheSocio, qtdGuicheNormal, qtdCarga, qtdProcura, qtdTempo);
+    for(int i=qtdGuicheNormal; i>0; i--){
+        guiches *novo = novoGuiche(i);
+        novo->proximo = Normal.primeiroN;
+        Normal.primeiroN = novo;
+    }
+    for(int i=qtdGuicheSocio; i>0; i--){
+        guiches *novo = novoGuiche(i);
+        novo->proximo = Socios.primeiroS;
+        Socios.primeiroS = novo;
+    }
     return 0;
 }
 /* balanceamento de procentagem: 1-((1+x)/x%)
