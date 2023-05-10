@@ -57,30 +57,47 @@ void menu(int &GS, int &GN, int &C, int &P, int &T) ///Função de seleção das
 bool addGNormal(gnormal Normal, int nome, int tempo){
     if(Normal.primeiroN==NULL)
         return false;
-    guiches *nav = Normal.primeiroN;
-    int aux = nav->total;
-    
-    
-    
+    guiches *atual = Normal.primeiroN;
+    if(atual->proximo!=NULL){
+        guiches *nav = atual->proximo;
+        while(nav!=NULL){
+            if(nav->total<atual->total){
+                atual = nav;
+            }
+            nav = nav->proximo;
+        }
+    }
     Torcedor novo;
     novo.nome = nome;
     novo.tempo = tempo;
     novo.socio = false;
+    Queue(atual->gfila, novo);
+    atual->total++;
+    return true;
 }
 
 bool addGSocios(gsocios Socios ,int nome, int tempo){
     if(Socios.primeiroS==NULL)
         return false;
-    guiches *nav = Socios.primeiroS;
-    int aux = nav->total;
-    
-    
-    
+    guiches *atual = Socios.primeiroS;
+    if(atual->proximo!=NULL){
+        guiches *nav = atual->proximo;
+        while(nav!=NULL){
+            if(nav->total<atual->total){
+                atual = nav;
+            }
+            nav = nav->proximo;
+        }
+    }
     Torcedor novo;
     novo.nome = nome;
     novo.tempo = tempo;
     novo.socio = true;
+    Queue(atual->gfila, novo);
+    atual->total++;
 }
+
+
 
 int main()
 {
@@ -117,7 +134,19 @@ int main()
                 addGSocios(Socios, j, 2);
         }
     }
-
+    for(int i=qtdTempo; i>0; i--){
+        guiches *nav = Normal.primeiroN;
+        for(int i=qtdGuicheNormal; i>0; i--){
+            cout << "Guichê normal número " << nav->num << endl;
+            //cout << nav->gfila << endl;
+        }
+        nav = Socios.primeiroS;
+        for(int i=qtdGuicheSocio; i>0; i--){
+            cout << "Guichê para sócios número " << nav->num << endl;
+            //cout << nav->gfila << endl;
+        }
+    }
+    cout << "Simulação Encerrada." << endl;
     return 0;
 }
-/* balanceamento de procentagem: 1-((1+x)/x%)
+/* balanceamento de procentagem: 1-((1+x)/x%)*/
