@@ -1,3 +1,4 @@
+///Alunos: Cauã Domingos e Paulo Martino Hermans
 #include <iostream>
 #include <windows.h>
 #include "fila.h"
@@ -145,6 +146,9 @@ int main()
             cout << "Guichê para sócios número " << nav->num << endl;
             //cout << nav->gfila << endl;
         }
+
+
+        system("cls");
     }
     cout << "Simulação Encerrada." << endl;
     return 0;
