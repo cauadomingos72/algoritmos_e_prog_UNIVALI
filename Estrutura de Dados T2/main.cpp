@@ -210,7 +210,8 @@ int main()
         system("cls");
     }
     cout << "Simulação Encerrada." << endl;
-    cout << atendidos << " torcedores foram atendidos com sucesso.";
+    cout << atendidos << " torcedores foram atendidos com sucesso." << endl;
+    cout << "Média de atendimentos por guichê: " << atendidos/(qtdGuicheNormal+qtdGuicheSocio);
     return 0;
 }
 /* balanceamento de procentagem: 1-((1+x)/x%)*/
