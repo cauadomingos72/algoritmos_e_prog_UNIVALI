@@ -164,6 +164,7 @@ int main()
     }
     preencherGSocios(qtdCarga/20, Socios);
     preencherGNormal(qtdCarga-qtdCarga/20, Normal);
+    int atendidos = 0;
     for(int i=qtdTempo; i>0; i--){
         guiches *nav = Normal.primeiroN;
         for(int i=qtdGuicheNormal; i>0; i--){
@@ -186,9 +187,10 @@ int main()
         nav = Normal.primeiroN;
         while(nav!=NULL){
             if(nav->gfila.inicio!=NULL){
-                if(nav->gfila.inicio->dado.tempo==0)
+                if(nav->gfila.inicio->dado.tempo==0){
                     DeQueue(nav->gfila);
-                else
+                    atendidos++;
+                }else
                     nav->gfila.inicio->dado.tempo--;
             }
             nav = nav->proximo;
@@ -196,9 +198,10 @@ int main()
         nav = Socios.primeiroS;
         while(nav!=NULL){
             if(nav->gfila.inicio!=NULL){
-                if(nav->gfila.inicio->dado.tempo==0)
+                if(nav->gfila.inicio->dado.tempo==0){
                     DeQueue(nav->gfila);
-                else
+                    atendidos++;
+                }else
                     nav->gfila.inicio->dado.tempo--;
             }
             nav = nav->proximo;
@@ -207,6 +210,7 @@ int main()
         system("cls");
     }
     cout << "Simulação Encerrada." << endl;
+    cout << atendidos << " torcedores foram atendidos com sucesso.";
     return 0;
 }
 /* balanceamento de procentagem: 1-((1+x)/x%)*/
