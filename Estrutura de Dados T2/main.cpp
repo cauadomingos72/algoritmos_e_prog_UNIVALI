@@ -168,17 +168,41 @@ int main()
         guiches *nav = Normal.primeiroN;
         for(int i=qtdGuicheNormal; i>0; i--){
             cout << "Guichê normal número " << nav->num << endl;
-            cout << nav->gfila << endl;
+            if(nav->gfila.inicio!=NULL)
+                cout << nav->gfila << endl;
+            else
+                cout << endl;
             nav = nav->proximo;
         }
         nav = Socios.primeiroS;
         for(int i=qtdGuicheSocio; i>0; i--){
             cout << "Guichê para sócios número " << nav->num << endl;
-            cout << nav->gfila << endl;
+            if(nav->gfila.inicio!=NULL)
+                cout << nav->gfila << endl;
+            else
+                cout << endl;
             nav = nav->proximo;
         }
-        
-        
+        nav = Normal.primeiroN;
+        while(nav!=NULL){
+            if(nav->gfila.inicio!=NULL){
+                if(nav->gfila.inicio->dado.tempo==0)
+                    DeQueue(nav->gfila);
+                else
+                    nav->gfila.inicio->dado.tempo--;
+            }
+            nav = nav->proximo;
+        }
+        nav = Socios.primeiroS;
+        while(nav!=NULL){
+            if(nav->gfila.inicio!=NULL){
+                if(nav->gfila.inicio->dado.tempo==0)
+                    DeQueue(nav->gfila);
+                else
+                    nav->gfila.inicio->dado.tempo--;
+            }
+            nav = nav->proximo;
+        }
         system("pause");
         system("cls");
     }
