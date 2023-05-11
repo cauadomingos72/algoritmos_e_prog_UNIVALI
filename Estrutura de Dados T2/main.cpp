@@ -62,14 +62,14 @@ void menu(int &GS, int &GN, int &C, int &P, int &T) ///Função de seleção das
     system("cls");
 }
 
-bool addGNormal(gnormal Normal, int nome, int tempo){
-    if(Normal.primeiroN==NULL)
+bool addGNormal(gnormal Normal, int nome, int tempo){  ///Função para adicionar um torcedor á fila do guichê
+    if(Normal.primeiroN==NULL)    ///verifica a existência de ao menos um guichê
         return false;
-    guiches *atual = Normal.primeiroN;
-    if(atual->proximo!=NULL){
-        guiches *nav = atual->proximo;
+    guiches *atual = Normal.primeiroN;    
+    if(atual->proximo!=NULL){    ///caso haja mais de um guichê, o desvio é acionado para criação de um navegador de guiches
+        guiches *nav = atual->proximo;   
         while(nav!=NULL){
-            if(nav->total<atual->total){
+            if(nav->total<atual->total){    ///após a criação do navegador, ele deve comparar os guichês até achar o que contém a menor fila
                 atual = nav;
             }
             nav = nav->proximo;
@@ -79,12 +79,12 @@ bool addGNormal(gnormal Normal, int nome, int tempo){
     novo.nome = nome;
     novo.tempo = tempo;
     novo.socio = false;
-    Queue(atual->gfila, novo);
+    Queue(atual->gfila, novo);    ///o torcedor é declarado com os dados passados por parametro e adicionado ou guichê selecionado anteriormente
     atual->total++;
     return true;
 }
 
-bool addGSocios(gsocios Socios ,int nome, int tempo){
+bool addGSocios(gsocios Socios ,int nome, int tempo){    ///função similar a anterior, utilizando como parametro os guichês para sócios
     if(Socios.primeiroS==NULL)
         return false;
     guiches *atual = Socios.primeiroS;
@@ -106,9 +106,9 @@ bool addGSocios(gsocios Socios ,int nome, int tempo){
     return true;
 }
 
-void preencherGNormal(int Carga, gnormal Normal){
+void preencherGNormal(int Carga, gnormal Normal){    ///Esta função deve atribuir a carga inicial aos guichês
     for(int i=1; i<=Carga; i++){
-        if((i%20) < 10 && (i%20) >= 0)
+        if((i%20) < 10 && (i%20) >= 0)   ///os seguintes desvios enviam os parametros do torcedor a serr criado de forma não aleatória.
             addGNormal(Normal, i, 3);
         if((i%20) < 16 && (i%20) > 9)
             addGNormal(Normal, i, 2);
@@ -117,7 +117,7 @@ void preencherGNormal(int Carga, gnormal Normal){
     }
 }
 
-void preencherGSocios(int Carga, gsocios Socios){
+void preencherGSocios(int Carga, gsocios Socios){   ///função similar a anterior, utilizando como parametro os guichês para sócios
     for(int i=1; i<=Carga; i++){
         if((i%20) < 17 && (i%20) >= 0)
             addGSocios(Socios, i, 1);
@@ -126,7 +126,7 @@ void preencherGSocios(int Carga, gsocios Socios){
     }
 }
 
-ostream& operator<<(ostream& os, const Torcedor& aux) {
+ostream& operator<<(ostream& os, const Torcedor& aux) {   ///sobrecarga que torna possível a exibição do tipo torcedor
     if(aux.socio==false)
         os << aux.nome;
     else
@@ -134,7 +134,7 @@ ostream& operator<<(ostream& os, const Torcedor& aux) {
     return os;
 }
 
-ostream& operator<<(ostream& os, const Fila<Torcedor>& f) {
+ostream& operator<<(ostream& os, const Fila<Torcedor>& f) {   ///sobrecarga que viajará toda uma fila para exibição de todos os elementos
     ElementoF<Torcedor> *nav = f.inicio;
     while(nav!=NULL){
         os << " " << nav->dado << " ";
@@ -146,26 +146,26 @@ ostream& operator<<(ostream& os, const Fila<Torcedor>& f) {
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
-    int qtdGuicheSocio, qtdGuicheNormal, qtdCarga, qtdProcura, qtdTempo;
-    gnormal Normal;
+    int qtdGuicheSocio, qtdGuicheNormal, qtdCarga, qtdProcura, qtdTempo; 
+    gnormal Normal;                                                      
     iniciaGNormal(Normal);
     gsocios Socios;
     iniciaGSocios(Socios);
-    menu(qtdGuicheSocio, qtdGuicheNormal, qtdCarga, qtdProcura, qtdTempo);
+    menu(qtdGuicheSocio, qtdGuicheNormal, qtdCarga, qtdProcura, qtdTempo);   ///Nos primeiros passos há toda a criação dos elementos necessários para a simulação
     for(int i=qtdGuicheNormal; i>0; i--){
         guiches *novo = novoGuiche(i);
         novo->proximo = Normal.primeiroN;
         Normal.primeiroN = novo;
     }
-    for(int i=qtdGuicheSocio; i>0; i--){
+    for(int i=qtdGuicheSocio; i>0; i--){    ///ambos os dois primeiros laços de repetição preenchem o atendimento com o número digitado de guichês
         guiches *novo = novoGuiche(i);
         novo->proximo = Socios.primeiroS;
         Socios.primeiroS = novo;
     }
     preencherGSocios(qtdCarga/20, Socios);
-    preencherGNormal(qtdCarga-qtdCarga/20, Normal);
-    int atendidos = 0;
-    for(int i=qtdTempo; i>0; i--){
+    preencherGNormal(qtdCarga-qtdCarga/20, Normal);   ///ocorre o preenchimento dos guichês criados
+    int atendidos = 0;    ///inteiro que contará o total de torcedores atendidos
+    for(int i=qtdTempo; i>0; i--){    ///laço que irá manter a simulação até o final do período definido
         guiches *nav = Normal.primeiroN;
         for(int i=qtdGuicheNormal; i>0; i--){
             cout << "Guichê normal número " << nav->num << endl;
@@ -177,13 +177,13 @@ int main()
         }
         nav = Socios.primeiroS;
         for(int i=qtdGuicheSocio; i>0; i--){
-            cout << "Guichê para sócios número " << nav->num << endl;
+            cout << "Guichê para sócios número " << nav->num << endl;   
             if(nav->gfila.inicio!=NULL)
                 cout << nav->gfila << endl;
             else
                 cout << endl;
             nav = nav->proximo;
-        }
+        }                            ///os dois laços anteriores exibem os guichês com seus nomes, tipos e filas
         nav = Normal.primeiroN;
         while(nav!=NULL){
             if(nav->gfila.inicio!=NULL){
@@ -205,9 +205,9 @@ int main()
                     nav->gfila.inicio->dado.tempo--;
             }
             nav = nav->proximo;
-        }
+        }                  ///os dois laços anteriores reduzem o tempo que o primeiro torcedor já esperou e o removem do guichê quando seu atendimento está completo
         if(qtdProcura>0){
-            for(int i=1; i<=qtdProcura; i++){
+            for(int i=1; i<=qtdProcura; i++){      ///laço que adiciona o numero de torcedores que procuram um guichê a cada unidade de tempo
                 addGNormal(Normal, i+qtdCarga, 3);
             }
             qtdCarga+=qtdProcura;
@@ -216,8 +216,7 @@ int main()
         system("cls");
     }
     cout << "Simulação Encerrada." << endl;
-    cout << atendidos << " torcedores foram atendidos com sucesso." << endl;
+    cout << atendidos << " torcedores foram atendidos com sucesso." << endl;   ///há a exibição dos dados da simulação e uma mensagem de encerramento do programa
     cout << "Média de atendimentos por guichê: " << atendidos/(qtdGuicheNormal+qtdGuicheSocio);
     return 0;
 }
-/* balanceamento de procentagem: 1-((1+x)/x%)*/
