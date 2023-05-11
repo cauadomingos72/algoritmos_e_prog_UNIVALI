@@ -206,6 +206,12 @@ int main()
             }
             nav = nav->proximo;
         }
+        if(qtdProcura>0){
+            for(int i=1; i<=qtdProcura; i++){
+                addGNormal(Normal, i+qtdCarga, 3);
+            }
+            qtdCarga+=qtdProcura;
+        }
         system("pause");
         system("cls");
     }
