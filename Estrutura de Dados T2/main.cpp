@@ -1,10 +1,17 @@
 ///Alunos: Cauã Domingos e Paulo Martino Hermans
 #include <iostream>
+#include <locale.h>
 #include <windows.h>
 #include "fila.h"
-#include "torcedor.h"
 
 using namespace std;
+
+struct Torcedor
+{
+  int nome;
+  int tempo;
+  bool socio;
+};
 
 struct guiches{    ///Criação do tipo Guichê
     int num;    ///Variável que descreve o numero referente ao guichê
@@ -96,12 +103,49 @@ bool addGSocios(gsocios Socios ,int nome, int tempo){
     novo.socio = true;
     Queue(atual->gfila, novo);
     atual->total++;
+    return true;
 }
 
+void preencherGNormal(int Carga, gnormal Normal){
+    for(int i=1; i<=Carga; i++){
+        if((i%20) < 10 && (i%20) >= 0)
+            addGNormal(Normal, i, 3);
+        if((i%20) < 16 && (i%20) > 9)
+            addGNormal(Normal, i, 2);
+        if((i%20) < 20 && (i%20) > 15)
+            addGNormal(Normal, i, 1);
+    }
+}
 
+void preencherGSocios(int Carga, gsocios Socios){
+    for(int i=1; i<=Carga; i++){
+        if((i%20) < 17 && (i%20) >= 0)
+            addGSocios(Socios, i, 1);
+        if((i%20) < 20 && (i%20) > 16)
+            addGSocios(Socios, i, 2);
+    }
+}
+
+ostream& operator<<(ostream& os, const Torcedor& aux) {
+    if(aux.socio==false)
+        os << aux.nome;
+    else
+        os << aux.nome << "S";
+    return os;
+}
+
+ostream& operator<<(ostream& os, const Fila<Torcedor>& f) {
+    ElementoF<Torcedor> *nav = f.inicio;
+    while(nav!=NULL){
+        os << " " << nav->dado << " ";
+        nav = nav->proximo;
+    }
+    return os;
+}
 
 int main()
 {
+    setlocale(LC_ALL, "Portuguese");
     int qtdGuicheSocio, qtdGuicheNormal, qtdCarga, qtdProcura, qtdTempo;
     gnormal Normal;
     iniciaGNormal(Normal);
@@ -118,36 +162,24 @@ int main()
         novo->proximo = Socios.primeiroS;
         Socios.primeiroS = novo;
     }
-    for(int i=1; i<=qtdCarga; i++){
-        int j = 0;
-        if(i%20!=0){
-            if((i%20) < 10)
-                addGNormal(Normal, i-j, 3);
-            if((i%20) < 16)
-                addGNormal(Normal, i-j, 2);
-            if((i%20) < 20)
-                addGNormal(Normal, i-j, 1);
-        }else{
-            j++;
-            if((j%20) < 17)
-                addGSocios(Socios, j, 1);
-            if((j%20) < 20)
-                addGSocios(Socios, j, 2);
-        }
-    }
+    preencherGSocios(qtdCarga/20, Socios);
+    preencherGNormal(qtdCarga-qtdCarga/20, Normal);
     for(int i=qtdTempo; i>0; i--){
         guiches *nav = Normal.primeiroN;
         for(int i=qtdGuicheNormal; i>0; i--){
             cout << "Guichê normal número " << nav->num << endl;
-            //cout << nav->gfila << endl;
+            cout << nav->gfila << endl;
+            nav = nav->proximo;
         }
         nav = Socios.primeiroS;
         for(int i=qtdGuicheSocio; i>0; i--){
             cout << "Guichê para sócios número " << nav->num << endl;
-            //cout << nav->gfila << endl;
+            cout << nav->gfila << endl;
+            nav = nav->proximo;
         }
-
-
+        
+        
+        system("pause");
         system("cls");
     }
     cout << "Simulação Encerrada." << endl;
