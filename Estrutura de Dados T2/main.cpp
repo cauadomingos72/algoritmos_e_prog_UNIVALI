@@ -128,16 +128,16 @@ void preencherGSocios(int Carga, gsocios Socios){   ///função similar a anteri
 
 ostream& operator<<(ostream& os, const Torcedor& aux) {   ///sobrecarga que torna possível a exibição do tipo torcedor
     if(aux.socio==false)
-        os << aux.nome;
+        os << aux.nome <<" (" << aux.tempo << ") ";
     else
-        os << aux.nome << "S";
+        os << aux.nome << " (" << aux.tempo << ") " <<"S";
     return os;
 }
 
 ostream& operator<<(ostream& os, const Fila<Torcedor>& f) {   ///sobrecarga que viajará toda uma fila para exibição de todos os elementos
     ElementoF<Torcedor> *nav = f.inicio;
     while(nav!=NULL){
-        os << " " << nav->dado << " ";
+        os << nav->dado << "\t ";
         nav = nav->proximo;
     }
     return os;
