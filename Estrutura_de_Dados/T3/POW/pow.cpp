@@ -1,9 +1,6 @@
 double pow(double a, double b){
-    
-    double result;
 
-    cin >> a;
-    cin >> b;
+    double result;
 
     result = a;
 
@@ -11,5 +8,6 @@ double pow(double a, double b){
         result = result * a;
     }
 
-    return result; 
+    return result;
+
 }
