@@ -1,6 +1,6 @@
-int pow(int a, int b){
+double pow(double a, double b){
     
-    int result;
+    double result;
 
     cin >> a;
     cin >> b;
