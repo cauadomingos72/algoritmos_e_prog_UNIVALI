@@ -1,0 +1,7 @@
+Exemplos de árvore binaria de expressão em C++: 
+
+- https://favtutor.com/blogs/expression-tree
+- https://www.geeksforgeeks.org/expression-tree/
+- https://www.sanfoundry.com/cpp-program-implement-expression-tree/
+- https://www.tutorialspoint.com/cplusplus-program-to-construct-an-expression-tree-for-a-given-prefix-expression
+- https://www.javatpoint.com/expression-tree-in-data-structure
