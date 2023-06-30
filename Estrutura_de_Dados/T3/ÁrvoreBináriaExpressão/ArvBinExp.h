@@ -1,3 +1,6 @@
+//Estrutura de Dados - Árvore Binária de Busca
+//Alunos: Cauã Domingos, Thiago Yukio e Taryck
+
 #ifndef INCLUDED_ARVBINEXP_H
 #define INCLUDED_ARVBINEXP_H
 #include <iostream>
@@ -77,6 +80,7 @@ void inserir(TArv *arv, int &prior, char exp)
   if(arv->raiz == NULL)
   {
     TNo *novo = new TNo;
+    Prioridade(exp, prior);
     novo->VxO =  exp;
     novo->chave = prior;
     novo->esquerda = NULL;
@@ -111,21 +115,22 @@ bool VerificaOperador(char O)
 
 void MontaArvore(TArv *arv, int &prior, string exp)
 {
-  for(int i = exp.size(); i >= 0; i--)
+  for(int i = 0; i < exp.size(); i++)
   {
+    cout<<exp[i]<<" ";
     inserir(arv, prior, exp[i]);
   }
 }
 
 int Calculo(TNo *no)
 {
-  int A, B;
+  int A=0, B=0;
 
   if(no != NULL)
   {
     if(VerificaNumero(no->VxO))
       return no->VxO-'0';
-    if((no->esquerda == NULL) && (no->direita))
+    if((no->esquerda == NULL) && (no->direita == NULL))
       return 0;
     else
     {
