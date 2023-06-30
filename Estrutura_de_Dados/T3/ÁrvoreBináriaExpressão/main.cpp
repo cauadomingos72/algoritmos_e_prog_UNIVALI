@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>     
 #include "ArvBinExp.h"
 
 using namespace std;
@@ -23,9 +24,9 @@ void menu(int &op)
 
 int main() 
 {
-  int op, prioridade=0;
+  int op, prioridade;
   string expressao;
-  TArv<string> arvore = {};
+  TArv arvore = {};
   
   do
   {
@@ -35,10 +36,11 @@ int main()
       case 1:
         system("clear");
         fflush(stdin);
+        prioridade = 1;
         cout<<"Digite uma expressão:"<<endl;
         cin>>expressao;
         fflush(stdin);
-        inserir(&arvore, valor, item);
+        MontaArvore(&arvore, prioridade, expressao);
         system("clear");
       break;
       case 2:
@@ -46,6 +48,7 @@ int main()
         imprimir(arvore.raiz);
       break;
       case 3:
+        imprimirResultado(&arvore);
       break;
       case 4:
       break;
