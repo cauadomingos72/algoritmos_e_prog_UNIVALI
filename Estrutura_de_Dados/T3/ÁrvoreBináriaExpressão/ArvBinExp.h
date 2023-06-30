@@ -1,151 +1,168 @@
 #ifndef INCLUDED_ARVBINEXP_H
 #define INCLUDED_ARVBINEXP_H
 #include <iostream>
+#include <string.h>
 using namespace std;
 
-template<typename TIPO>
 struct TNo
 {
-  TIPO item;
+  char VxO;
   int chave;
   TNo *esquerda, *direita;
 };
 
-template<typename TIPO>
 struct TArv
 {
-  TNo<TIPO> *raiz;
+  TNo *raiz;
 };
 
-template<typename TIPO>
-void inserirEsquerda(TNo<TIPO> *no, int valor, TIPO i)
+void inserirDireita(TNo *no, int &prior, char exp);
+
+void Prioridade(char C, int &prior)
+{
+  if(C == '(')
+    prior *= 10;
+  if(C == ')')
+    prior /= 10;
+  if(C=='+' || C=='-')
+    prior *= 2;
+  if(C=='/' || C=='*')
+    prior *= 4;
+  else
+    prior *= 6;
+}
+
+void inserirEsquerda(TNo *no, int &prior, char exp)
 {
   if(no->esquerda == NULL)
   {
-    TNo<TIPO> *novo = new TNo<TIPO>;
-    novo->item =  i;
-    novo->chave = valor;
+    TNo *novo = new TNo;
+    novo->VxO =  exp;
+    novo->chave = prior;
     novo->esquerda = NULL;
     novo->direita = NULL;
     no->esquerda = novo;
   }
   else
   {
-    if(valor < no->esquerda->chave)
-      inserirEsquerda(no->esquerda, valor, i);
-    if(valor > no->esquerda->chave)
-      inserirDireita(no->esquerda, valor, i);
+    if(prior < no->esquerda->chave)
+      inserirEsquerda(no->esquerda, prior, exp);
+    if(prior > no->esquerda->chave)
+      inserirDireita(no->esquerda, prior, exp);
   }
 }
 
-template<typename TIPO>
-void inserirDireita(TNo<TIPO> *no, int valor, TIPO i)
+void inserirDireita(TNo *no, int &prior, char exp)
 {
   if(no->direita == NULL)
   {
-    TNo<TIPO> *novo = new TNo<TIPO>;
-    novo->item =  i;
-    novo->chave = valor;
+    TNo *novo = new TNo;
+    novo->VxO =  exp;
+    novo->chave = prior;
     novo->esquerda = NULL;
     novo->direita = NULL;
     no->direita = novo;
   }
   else
   {
-    if(valor > no->direita->chave)
-      inserirDireita(no->direita, valor, i);
-    if(valor < no->direita->chave)
-      inserirEsquerda(no->direita, valor, i);
+    if(prior > no->direita->chave)
+      inserirDireita(no->direita, prior, exp);
+    if(prior < no->direita->chave)
+      inserirEsquerda(no->direita, prior, exp);
   }
 }
 
-template<typename TIPO>
-void inserir(TArv<TIPO> *arv, int valor, TIPO i)
+void inserir(TArv *arv, int &prior, char exp)
 {
   if(arv->raiz == NULL)
   {
-    TNo<TIPO> *novo = new TNo<TIPO>;
-    novo->item =  i;
-    novo->chave = valor;
+    TNo *novo = new TNo;
+    novo->VxO =  exp;
+    novo->chave = prior;
     novo->esquerda = NULL;
     novo->direita = NULL;
     arv->raiz = novo;
   }
   else
   {
-    if(valor < arv->raiz->chave)
-      inserirEsquerda(arv->raiz, valor, i);
-    if(valor > arv->raiz->chave)
-      inserirDireita(arv->raiz, valor, i);
+    Prioridade(exp, prior);
+    if(prior < arv->raiz->chave)
+      inserirEsquerda(arv->raiz, prior, exp);
+    if(prior > arv->raiz->chave)
+      inserirDireita(arv->raiz, prior, exp);
   }
 }
 
-template<typename TIPO>
-void buscaEsquerda(TNo<TIPO> *no, int valor)
+bool VerificaNumero(char N)
 {
-  if(no->chave == valor)
+  if((N >= '0')&&(N <= '9'))
+    return true;
+  else 
+    return false;
+}
+
+bool VerificaOperador(char O)
+{
+  if((O == '+') || (O == '-') || (O == '*') || (O == '/'))
+    return true;
+  else 
+    return false;
+}
+
+void MontaArvore(TArv *arv, int &prior, string exp)
+{
+  for(int i = exp.size(); i >= 0; i--)
   {
-    cout<<"Chave: "<<no->chave<<endl;
-    cout<<"Item: "<<no->item<<endl;
-  }
-  else
-  {
-    if(valor < no->chave)
-      buscaEsquerda(no->esquerda, valor);
-    else
-      buscaDireita(no->direita, valor);
+    inserir(arv, prior, exp[i]);
   }
 }
 
-template<typename TIPO>
-void buscaDireita(TNo<TIPO> *no, int valor)
+int Calculo(TNo *no)
 {
-  if(no->chave == valor)
-  {
-    cout<<"Chave: "<<no->chave<<endl;
-    cout<<"Item: "<<no->item<<endl;
-  }
-  else
-  {
-    if(valor < no->chave)
-      buscaEsquerda(no->esquerda, valor);
-    else
-      buscaDireita(no->direita, valor);
-  }
-}
+  int A, B;
 
-template<typename TIPO>
-void busca(TArv<TIPO> *arv, int valor)
-{
-  if(arv->raiz == NULL)
-    cout<<"Árvore Vazia"<<endl;
-  else
+  if(no != NULL)
   {
-    if(arv->raiz->chave == valor)
-    {
-      cout<<"Chave: "<<arv->raiz->chave<<endl;
-      cout<<"Item: "<<arv->raiz->item<<endl;
-    }
+    if(VerificaNumero(no->VxO))
+      return no->VxO-'0';
+    if((no->esquerda == NULL) && (no->direita))
+      return 0;
     else
     {
-      if(valor < arv->raiz->chave)
-        buscaEsquerda(arv->raiz->esquerda, valor);
-      else
-        buscaDireita(arv->raiz->direita, valor);
+      A = Calculo(no->esquerda);
+      B = Calculo(no->direita);
+
+      switch(no->VxO)
+      {
+        case '+':
+          return (A+B);
+        case '-':
+          return (A-B);
+        case '*':
+          return (A*B);
+        case '/':
+          return (A/B);
+      }
     }
   }
+  return 0;
 }
 
-template<typename TIPO>
-void imprimir(TNo<TIPO> *raiz)
+void imprimir(TNo *raiz)
 {
   if(raiz != NULL)
   {
     imprimir(raiz->esquerda);
-    cout<<"Chave: "<<raiz->chave<<endl; 
-    cout<<"Item: "<<raiz->item<<endl;
+    cout<<raiz->VxO<<endl;
     imprimir(raiz->direita);
   }
 }
 
+void imprimirResultado(TArv *arv)
+{
+  cout<<"Resultado: "<<Calculo(arv->raiz);
+}
+
 #endif
+
+//strlen (string x) -- x.size() -- x[i]
