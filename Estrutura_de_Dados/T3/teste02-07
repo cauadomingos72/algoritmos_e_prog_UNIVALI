@@ -1,0 +1,176 @@
+#include <iostream>
+using namespace std;
+#include <queue>
+#include <cmath>
+#include <string>
+
+struct No {
+    char VxO;
+    int prior;
+    No* esquerda;
+    No* direita;
+};
+
+
+
+
+No* MontarArv(string exp) {
+    int prioridadeAtual = 0;
+    int posOp = -1;
+    int contP = 0;
+
+    for (int i = exp.size(); i >=0 ; i--) {
+        cout<<endl<<exp[i]<<endl;
+        if (exp[i] == ')') {
+            contP++;
+        } else if (exp[i] == '(') {
+            contP--;
+        } else if ((exp[i] == '+' || exp[i] == '-') && contP == 0) {
+            if (prioridadeAtual <= 1) {
+                prioridadeAtual = 1;
+                posOp = i;
+            }
+            break;
+        } else if ((exp[i] == '*' || exp[i] == '/') && contP == 0) {
+            prioridadeAtual = 2;
+            posOp = i;
+            break;
+        }
+    }
+    if (posOp != -1) {
+        No* no = new No;
+        no->VxO = exp[posOp];
+        no->prior = prioridadeAtual;
+        no->esquerda = MontarArv(exp.substr(0, posOp));
+        no->direita = MontarArv(exp.substr(posOp + 1));
+        return no;
+    } else if (exp[0] == '(' && exp[exp.size() - 1] == ')' && contP == 0) {
+        return MontarArv(exp.substr(1, exp.size() - 2));
+    } else {
+        No* no = new No;
+        no->VxO = exp[0];
+        no->prior = 0;
+        no->esquerda = NULL;
+        no->direita = NULL;
+        return no;
+    }
+}
+
+//if(prior<no->prior){
+//    No* novoNo = new No;
+//    no->VxO = exp[0];
+//    no->prior = prior;
+//    no->direita = no;
+//    no->esquerda =
+//}
+
+
+
+
+
+
+
+
+
+int Calculo(No* raiz) {
+    if (raiz->esquerda == NULL && raiz->direita == NULL) {
+        return raiz->VxO - '0'; // Converter o caractere numérico para um valor inteiro
+    }
+    int resultadoEsquerda = Calculo(raiz->esquerda);
+    int resultadoDireita = Calculo(raiz->direita);
+
+    if (raiz->VxO == '+') {
+        return resultadoEsquerda + resultadoDireita;
+    } else if (raiz->VxO == '-') {
+        return resultadoEsquerda - resultadoDireita;
+    } else if (raiz->VxO == '*') {
+        return resultadoEsquerda * resultadoDireita;
+    } else if (raiz->VxO == '/') {
+        return resultadoEsquerda / resultadoDireita;
+    }
+    return 0; // Operador inválido
+}
+
+void printSpace(double n, No* removed){
+	for (; n > 0; n--) {
+		cout << "\t";
+	}
+	if (removed == NULL) {
+		cout << " ";
+	}
+	else {
+		cout << removed->VxO;
+	}
+}
+
+int heightOfTree(No* root){
+	if (root==NULL) {
+		return 0;
+	}
+	return 1+ max(heightOfTree(root->esquerda),heightOfTree(root->direita));
+}
+
+void printBinaryTree(No* root){
+	queue<No*> treeLevel, temp;
+	treeLevel.push(root);
+	int counter = 0;
+	int height = heightOfTree(root) - 1; ///ERRO
+	double numberOfElements = pow(2, (height + 1)) - 1;
+	while (counter <= height) {
+		No* removed = treeLevel.front();
+		treeLevel.pop();
+		if (temp.empty()) {
+			printSpace(numberOfElements / pow(2, counter + 1),removed);
+		}
+		else {
+			printSpace(numberOfElements / pow(2, counter),removed);
+		}
+		if (removed == NULL) {
+			temp.push(NULL);
+			temp.push(NULL);
+		}
+		else {
+			temp.push(removed->esquerda);
+			temp.push(removed->direita);
+		}
+		if (treeLevel.empty()) {
+			cout << endl << endl;
+			treeLevel = temp;
+			while (!temp.empty()) {
+				temp.pop();
+			}
+			counter++;
+		}
+	}
+}
+
+//void imprimir(No *raiz)
+//{
+//  if(raiz != NULL)
+//  {
+//    imprimir(raiz->esquerda);
+//    cout<<raiz->VxO<<endl;
+//    imprimir(raiz->direita);
+//  }
+//}
+
+int main() {
+    string exp;
+    cout<<"\nDigite a expressao: ";
+    getline(cin,exp);
+    cout<<exp;
+
+    for(int i=0;i<exp.size();i++){
+        if(exp[i]==' '){
+            exp.erase(i,1);
+            i--;
+        }
+    }
+    No* raiz = MontarArv(exp);
+    int resultado = Calculo(raiz);
+    printBinaryTree(raiz);
+    //imprimir(raiz);
+    cout << "Resultado: " << resultado << endl;
+
+    return 0;
+}
