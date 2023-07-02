@@ -1,0 +1,42 @@
+No* MontarArv(string exp) {
+    int prioridadeAtual = 0;
+    int posOp = -1;
+    int contP = 0;
+
+    for (int i = exp.size(); i >=0 ; i--) {
+        cout<<endl<<exp[i]<<endl;
+        if (exp[i] == ')') {
+            contP++;
+        } else if (exp[i] == '(') {
+            contP--;
+        } else if ((exp[i] == '+' || exp[i] == '-') && contP == 0) {
+            if (prioridadeAtual <= 1) {
+                prioridadeAtual = 1;
+                posOp = i;
+            }
+            break;
+        } else if ((exp[i] == '*' || exp[i] == '/') && contP == 0) {
+            prioridadeAtual = 2;
+            posOp = i;
+            break;
+        }
+    }
+    if (posOp != -1) {
+        No* no = new No;
+        no->VxO = exp[posOp];
+        no->prior = prioridadeAtual;
+        no->esquerda = MontarArv(exp.substr(0, posOp));
+        no->direita = MontarArv(exp.substr(posOp + 1));
+        return no;
+    } else if (exp[0] == '(' && exp[exp.size() - 1] == ')' && contP == 0) {
+        return MontarArv(exp.substr(1, exp.size() - 2));
+    } else {
+
+        No* no = new No;
+        no->VxO = exp[0];
+        no->prior = 0;
+        no->esquerda = NULL;
+        no->direita = NULL;
+        return no;
+    }
+}
