@@ -1,11 +1,9 @@
 #include <iostream>
 using namespace std;
-
 #include <string>
-
+#include <windows.h>
 struct No {
     string VxO;
-    int prior;
     No* esquerda;
     No* direita;
 };
@@ -23,19 +21,19 @@ bool VNum(char C){
     }
 }
 
-int Prioridade(char C){
-    if(C == ' ')
-        return 0;
+bool VOp(char C){
+    if((C == '+') || (C == '-') || (C == '*') || (C == '/'))
+        return true;
     else
-    {
-        if(C=='+' || C=='-')
-            return 2;
-        if(C=='/' || C=='*')
-            return 4;
-        if(C=='(' || C==')')
-            return 6;
-        else
-            return 1;
+        return false;
+}
+
+bool VParenteses(char C){
+    if((C == '(') || (C == ')')){
+        return true;
+    }
+    else{
+        return false;
     }
 }
 
@@ -51,12 +49,8 @@ string getNumber(string exp){
     return aux;
 }
 
-No* MontarArv(string exp, No *Pai) {
-    int prioridadeAtual = 0;
-    int posOp = -1;
-    int contP = 0;
-    //int valor = 0;
-    int aux = 0;
+No* MontarArv(string exp) {
+    int posOp = -1,contP = 0;
 
     for (int i = exp.size()-1; i >=0 ; i--) {
         cout<<endl<<exp[i]<<endl;
@@ -65,45 +59,25 @@ No* MontarArv(string exp, No *Pai) {
         } else if (exp[i] == '(') {
             contP--;
         } else if ((exp[i] == '+' || exp[i] == '-') && contP == 0) {
-            if(Pai!=NULL){
-                cout<<"exp[i]: "<<exp[i]<<endl;
-//                if(Prioridade(Pai->VxO)==4){
-//                    aux = 1;
-//                }
-            }
             posOp = i;
             break;
         } else if ((exp[i] == '*' || exp[i] == '/') && contP == 0) {
-
             posOp = i;
             break;
         }
     }
-    cout<<"Aux: "<<aux<<endl;
     if (posOp != -1) {
         No* no = new No;
         no->VxO = exp[posOp];
-        no->prior = prioridadeAtual;
-        no->esquerda = MontarArv(exp.substr(0, posOp),no);
-        if(aux==1){
-            cout<<"Direita-Pai: "<<Pai->direita->VxO;
-            cout<<"Esquerda-Pai: "<<Pai->esquerda->VxO;
-            no->direita = Pai;
-            aux=0;
-        }else{
-             no->direita = MontarArv(exp.substr(posOp + 1),no);
-        }
-
-//        no->esquerda = MontarArv(exp.substr(0, posOp),no);
-//        no->direita = MontarArv(exp.substr(posOp + 1),no);
+        no->esquerda = MontarArv(exp.substr(0, posOp));
+        no->direita = MontarArv(exp.substr(posOp + 1));
         return no;
     }
     else if (exp[0] == '(' && exp[exp.size() - 1] == ')' && contP == 0) {
-        return MontarArv(exp.substr(1, exp.size() - 2),NULL);
+        return MontarArv(exp.substr(1, exp.size() - 2));
     } else {
         No* no = new No;
         no->VxO = getNumber(exp);
-        no->prior = 0;
         no->esquerda = NULL;
         no->direita = NULL;
         return no;
@@ -201,22 +175,107 @@ void mostrar(Tarv arv) {
     }
 }
 
-int main() {
-    string exp;
-    cout<<"\nDigite a expressao: ";
-    getline(cin,exp);
-    cout<<exp;
+bool verificar(string exp){
     for(int i=0;i<exp.size();i++){
         if(exp[i]==' '){
             exp.erase(i,1);
             i--;
         }
     }
-    No* teste = NULL;
-    Tarv arvore;
-    arvore.raiz = MontarArv(exp,teste);
-    int resultado = Calculo(arvore.raiz);
-    mostrar(arvore);
-    cout << "Resultado: " << resultado << endl;
-    return 0;
+    int contAbre=0,contFecha=0;
+    for(int i=0;i<exp.size();i++){
+        cout<<exp[i]<<endl;
+        if(!VOp(exp[i]) && !VNum(exp[i]) && !VParenteses(exp[i])){
+            return false;
+        }
+    }
+    if(exp.size()==1 && !VNum(exp[0])){
+        return false;
+    }
+    for(int i=0;i<exp.size();i++){
+        if(exp[i]=='('){
+            contAbre++;
+        }
+        if(exp[i]==')'){
+            contFecha++;
+        }
+    }
+    if(contAbre!=contFecha){
+        return false;
+    }
+    for(int i=0;i<exp.size()-1;i++){
+        if(VOp(exp[i])==true && VOp(exp[i+1]==true && (exp[i]!='(' || exp[i]!=')' || exp[i+1]!='(' || exp[i+1]!=')'))){
+            return false;
+        }
+    }
+    if(VOp(exp[0])==true || VOp(exp[exp.size()-1])==true){
+        return false;
+    }
+
+    return true;
+}
+
+void menu(int &op){
+    cout<<endl;
+    cout<<endl;
+    cout<<"\t\tÁRVORE BINÁRIA DE EXPRESSÃO"<<endl;
+    cout<<"-----------------------------------------"<<endl;
+    cout<<"1 - Inserir Expressão"<<endl;
+    cout<<"2 - Exibir Expressão"<<endl;
+    cout<<"3 - Exibir Resultado"<<endl;
+    cout<<"4 - Exibir em Forma de Grafo"<<endl;
+    cout<<"5 - Encerrar"<<endl;
+    cout<<"-----------------------------------------"<<endl;
+    cin>>op;
+}
+
+int main()
+{
+    setlocale(LC_ALL,"portuguese");
+    int op;
+    string expressao;
+    Tarv arvore = {};
+
+    do{
+        menu(op); //Função menu, onde estará a interface do usuário no console
+        switch(op) //A função menu retorna o opção, a qual é armazenada um valor, e será direcionada para a função desejada
+        {
+          case 1:
+            system("cls"); //Limpa a interface do usuário
+            cout<<"Digite uma expressão:"<<endl;
+            cin>>expressao; //O usuário digita a expressão no qual deseja que seja calculada
+            arvore = {}; //Anula a variável árvore por uma possível outra expressão a qual queira estar realizando depois
+            if(!verificar(expressao)){
+                cout<<"Expressão errada";
+                break;
+            }
+            arvore.raiz = MontarArv(expressao); //Chama a função que estará armazenando e reorganizando a expressão digitada pelo usuário
+            system("cls"); //Limpa a interface do usuário
+          break;
+          case 2:
+            system("cls"); //Limpa a interface do usuário
+            cout<<endl;
+            for(int i=0; i < expressao.size(); i++){ //Um laço de repetição que irá percorrer toda a expressão digitada, exibindo a mesma
+                cout<<expressao[i]<<" ";
+              }
+            cout<<endl;
+          break;
+          case 3:
+            system("cls"); //Limpa a interface do usuário
+            cout<<endl;
+            cout<<"Resultado: "<<Calculo(arvore.raiz)<<endl; //Exibe o resultado retornado pela função cálculo
+          break;
+          case 4:
+            system("cls"); //Limpa a interface do usuário
+            cout<<endl;
+            mostrar(arvore); //Função que exibe a expressão da forma que está contida na árvore em grafo
+            cout<<endl;
+          break;
+          case 5: //Encerra o programa
+          break;
+          default:
+          system("cls");
+            cout<<"Opção Inválida";
+        }
+    } while(op != 5);
 }
